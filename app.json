@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "HappyImoveis",
+    "slug": "HappyImoveis",
+    "scheme": "happy-imoveis",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "orientation": "portrait"
+  },
+  "name": "HappyImoveis"
+}
