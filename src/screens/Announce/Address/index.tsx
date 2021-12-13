@@ -52,8 +52,7 @@ const Address = () => {
         <TextInput placeholder="Complemento do imóvel" maxLength={50} />
         <SubText>Limite de 50 caracteres</SubText>
         <Text>Estado:</Text>
-        <SelectInput mb />
-        <Text>Cidade:</Text>
+        <SelectInput text="Estado" mb options={states.map(({nome}) => nome).sort()} />
         <ButtonsView>
           <Button onPress={() => navigation.goBack()}>
             <ButtonText>Voltar</ButtonText>
