@@ -11,11 +11,11 @@ const Address = () => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [complement, setComplement] = useState('');
-  const [currentStateName, setCurrentStateName] = useState('');
   const [currentStateId, setCurrentStateId] = useState('');
   const [currentCityId, setCurrentCityId] = useState('');
   const [states, setStates] = useState([]);
   const [citys, setcitys] = useState([]);
+  const [openCitySelection, setOpenCitySelection] = useState(false);
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
@@ -26,6 +26,15 @@ const Address = () => {
     };
     getStates();
   }, []);
+  
+  useEffect(() => {
+    const getCitys = async () => {
+      const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${currentStateId}/municipios`);
+      const obj = await response.json();
+      setStates(obj);
+    };
+    getCitys();
+  }, [currentStateId]);
 
   const navigation = useNavigation();
 
@@ -44,15 +53,18 @@ const Address = () => {
       </Header>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text>Endereço:</Text>
-        <TextInput placeholder="Endereço do imóvel" maxLength={100} />
+        <TextInput placeholder="Endereço" maxLength={100} />
         <SubText>Limite de 100 caracteres</SubText>
         <Text>Número:</Text>
-        <TextInput mb placeholder="Preço do imóvel" />
+        <TextInput mb placeholder="Número" />
         <Text>Complemento:</Text>
-        <TextInput placeholder="Complemento do imóvel" maxLength={50} />
+        <TextInput placeholder="Complemento" maxLength={50} />
         <SubText>Limite de 50 caracteres</SubText>
         <Text>Estado:</Text>
-        <SelectInput text="Estado" mb options={states.map(({nome}) => nome).sort()} />
+        <SelectInput mb setCurrentStateId={setCurrentStateId} options={states} />
+        {/* {openCitySelection && (
+          <SelectInput text="Cidade" mb options={states.map(({nome}) => nome).sort()} />
+        )} */}
         <ButtonsView>
           <Button onPress={() => navigation.goBack()}>
             <ButtonText>Voltar</ButtonText>

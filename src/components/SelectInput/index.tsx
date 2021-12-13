@@ -2,19 +2,34 @@ import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Container, ValueView, Text, Icon, Option } from './styles';
 
+interface State {
+  id: number,
+  nome: string,
+  regiao: {
+    id: number,
+    nome: string,
+    sigla: string,
+  },
+  sigla: string,
+}
+
 interface Props{
-  text: string
   mb?: boolean
-  options: Array<string>
+  options: Array<State>
+  setCurrentStateId: any
 };
 
-const SelectInput = ({text, mb, options}: Props) => {
+const SelectInput = ({mb, setCurrentStateId, options}: Props) => {
+  const namesOptions = options.map((state: State) => state.nome).sort();
+  
   const [openSelectOptions, setOpenSelectOptions] = useState(false);
   const [value, setValue] = useState('Selecione uma opção');
 
   const selectOption = (event) => {
     setValue(event._dispatchInstances.memoizedProps.children);
     setOpenSelectOptions(false);
+    const selectedState = options.find(({nome}) => nome === value);
+    setCurrentStateId(selectedState.id);
   };
 
   return (
@@ -25,7 +40,7 @@ const SelectInput = ({text, mb, options}: Props) => {
       </ValueView>
       {openSelectOptions && (
         <ScrollView style={{height: 200}} showsVerticalScrollIndicator={false}>
-          {options.map((option) => (
+          {namesOptions.map((option) => (
             <Option key={option} onPress={selectOption}>{option}</Option>
           ))}
         </ScrollView>

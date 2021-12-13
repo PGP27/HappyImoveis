@@ -47,6 +47,7 @@ export const Option = styled.Text`
   padding: 10px;
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(16)}px;
+  color: black;
   background-color: #eeeeee;
   margin-top: 2px;
 `;
