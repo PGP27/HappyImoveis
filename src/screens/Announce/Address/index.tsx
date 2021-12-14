@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StatusBar } from 'react-native';
+import { ScrollView, StatusBar, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
 import theme from '../../../contexts/theme';
@@ -11,11 +11,11 @@ const Address = () => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [complement, setComplement] = useState('');
-  const [currentStateId, setCurrentStateId] = useState('');
-  const [currentCityId, setCurrentCityId] = useState('');
+  const [openCitySelection, setOpenCitySelection] = useState(false);
+  const [currentState, setCurrentState] = useState<any>();
+  const [currentCity, setCurrentCity] = useState<any>();
   const [states, setStates] = useState([]);
   const [citys, setcitys] = useState([]);
-  const [openCitySelection, setOpenCitySelection] = useState(false);
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
@@ -29,18 +29,55 @@ const Address = () => {
   
   useEffect(() => {
     const getCitys = async () => {
-      const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${currentStateId}/municipios`);
-      const obj = await response.json();
-      setStates(obj);
+      if (currentState) {
+        setOpenCitySelection(false);
+        const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${currentState.id}/municipios`);
+        const obj = await response.json();
+        setcitys(obj);
+        setOpenCitySelection(true);
+      }
     };
     getCitys();
-  }, [currentStateId]);
+  }, [currentState]);
 
   const navigation = useNavigation();
 
   const closeModal = () => {
     StatusBar.setBackgroundColor(theme.colors.blue);
     navigation.navigate('Home');
+  };
+
+  const handleChangeNumber = (text: string) => {
+    const onlyNumbers = /^\d*$/;
+    if (text.match(onlyNumbers)) {
+      setNumber(text);
+    }
+  };
+
+  const fixNumber = () => {
+    const toInt = parseInt(number);
+    const toString = String(toInt);
+    setNumber(toString);
+  };
+
+  const verifyForm = () => {
+    if (address.length !== 0) {
+      if (parseInt(number) > 0) {
+        if (currentState && currentState.nome) {
+          if (currentCity && currentCity.nome) {
+            navigation.navigate('Infos');
+          } else {
+            alert('Escolha uma cidade para continuar');
+          }
+        } else {
+          alert('Escolha um estado para continuar');
+        }
+      } else {
+        alert('Digite um número válido para continuar');
+      }
+    } else {
+      alert('Preencha um endereço para continuar');
+    }
   };
 
   return (
@@ -53,23 +90,26 @@ const Address = () => {
       </Header>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text>Endereço:</Text>
-        <TextInput placeholder="Endereço" maxLength={100} />
+        <TextInput value={address} onChangeText={(text) => setAddress(text)} placeholder="Endereço" maxLength={100} />
         <SubText>Limite de 100 caracteres</SubText>
         <Text>Número:</Text>
-        <TextInput mb placeholder="Número" />
+        <TextInput keyboardType='numeric' value={number} onChangeText={(text) => handleChangeNumber(text)} onBlur={fixNumber} mb placeholder="Número" maxLength={5} />
         <Text>Complemento:</Text>
-        <TextInput placeholder="Complemento" maxLength={50} />
+        <TextInput value={complement} onChangeText={(text) => setComplement(text)} placeholder="Complemento" maxLength={50} />
         <SubText>Limite de 50 caracteres</SubText>
         <Text>Estado:</Text>
-        <SelectInput mb setCurrentStateId={setCurrentStateId} options={states} />
-        {/* {openCitySelection && (
-          <SelectInput text="Cidade" mb options={states.map(({nome}) => nome).sort()} />
-        )} */}
+        <SelectInput mb setState={setCurrentState} options={states} />
+        {openCitySelection && (
+          <View>
+            <Text>Cidade:</Text>
+            <SelectInput mb setState={setCurrentCity} options={citys} />
+          </View>
+        )}
         <ButtonsView>
           <Button onPress={() => navigation.goBack()}>
             <ButtonText>Voltar</ButtonText>
           </Button>
-          <Button onPress={() => navigation.navigate('Infos')}>
+          <Button onPress={verifyForm}>
             <ButtonText>Próximo</ButtonText>
           </Button>
         </ButtonsView>
