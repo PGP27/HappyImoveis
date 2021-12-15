@@ -55,9 +55,11 @@ const Address = () => {
   };
 
   const fixNumber = () => {
-    const toInt = parseInt(number);
-    const toString = String(toInt);
-    setNumber(toString);
+    if (number.length > 0) {
+      const toInt = parseInt(number);
+      const toString = String(toInt);
+      setNumber(toString);
+    }
   };
 
   const verifyForm = () => {
