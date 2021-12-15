@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Container, Header, Title, Text, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
 
 const Infos = () => {
-  const [image, setImage] = useState(null);
+  const [mainPicture, setMainPicture] = useState(null);
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
@@ -26,7 +26,7 @@ const Infos = () => {
           quality: 1,
         });
         if (!result.cancelled) {
-          setImage(result.uri);
+          setMainPicture(result.uri);
         }
       }
     }
@@ -51,7 +51,7 @@ const Infos = () => {
       <TextInput placeholder="Foto principal do imóvel" />
       <Text>Outras fotos:</Text>
       <TextInput placeholder="Outras fotos do imóvel" />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      {mainPicture && <Image source={{ uri: mainPicture }} style={{ width: 200, height: 200 }} />}
       <ButtonsView>
         <Button onPress={() => navigation.goBack()}>
           <ButtonText>Voltar</ButtonText>
