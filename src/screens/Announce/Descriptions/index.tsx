@@ -4,11 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
 import theme from '../../../contexts/theme';
 import { Container, Header, Title, Text, SubText, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
+import { useAnnounce } from '../../../contexts/AnnounceContext';
 
 const Descriptions = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const { setAnnounce } = useAnnounce();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -45,6 +47,12 @@ const Descriptions = () => {
     if (title.length !== 0) {
       if (description.length !== 0) {
         if (parseFloat(price.replace(',', '.')) > 0) {
+          setAnnounce((state) => ({
+            ...state,
+            title,
+            description,
+            price,
+          }));
           navigation.navigate('Address');
         } else {
           alert('Digite um preço válido continuar');

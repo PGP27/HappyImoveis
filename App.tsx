@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/contexts/theme';
 import { AuthProvider } from './src/contexts/AuthContext';
+import { AnnounceProvider } from './src/contexts/AnnounceContext';
 import { useFonts, JosefinSans_400Regular, JosefinSans_700Bold } from '@expo-google-fonts/josefin-sans';
 import AppLoading from 'expo-app-loading';
 import Routes from './src/routes';
@@ -17,7 +18,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Routes />
+        <AnnounceProvider>
+          <Routes />
+        </AnnounceProvider>
       </AuthProvider>
     </ThemeProvider>
   );

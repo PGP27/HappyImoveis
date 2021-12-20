@@ -6,16 +6,19 @@ import theme from '../../../contexts/theme';
 import { Container, Header, Title, Text, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
 import { SubText } from '../Descriptions/styles';
 import SelectInput from '../../../components/SelectInput';
+import { useAnnounce } from '../../../contexts/AnnounceContext';
 
 const Address = () => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [complement, setComplement] = useState('');
   const [openCitySelection, setOpenCitySelection] = useState(false);
-  const [currentState, setCurrentState] = useState<any>();
-  const [currentCity, setCurrentCity] = useState<any>();
+  const [state, setState] = useState<any>();
+  const [city, setCity] = useState<any>();
   const [states, setStates] = useState([]);
   const [citys, setcitys] = useState([]);
+  const navigation = useNavigation();
+  const { setAnnounce } = useAnnounce();
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
@@ -29,18 +32,16 @@ const Address = () => {
   
   useEffect(() => {
     const getCitys = async () => {
-      if (currentState) {
+      if (state) {
         setOpenCitySelection(false);
-        const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${currentState.id}/municipios`);
+        const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${state.id}/municipios`);
         const obj = await response.json();
         setcitys(obj);
         setOpenCitySelection(true);
       }
     };
     getCitys();
-  }, [currentState]);
-
-  const navigation = useNavigation();
+  }, [state]);
 
   const closeModal = () => {
     StatusBar.setBackgroundColor(theme.colors.blue);
@@ -65,8 +66,16 @@ const Address = () => {
   const verifyForm = () => {
     if (address.length !== 0) {
       if (parseInt(number) > 0) {
-        if (currentState && currentState.nome) {
-          if (currentCity && currentCity.nome) {
+        if (state && state.nome) {
+          if (city && city.nome) {
+            setAnnounce((prevState) => ({
+              ...prevState,
+              address,
+              number,
+              complement,
+              state: state.nome,
+              city: city.nome,
+            }));
             navigation.navigate('Infos');
           } else {
             alert('Escolha uma cidade para continuar');
@@ -100,11 +109,11 @@ const Address = () => {
         <TextInput value={complement} onChangeText={(text) => setComplement(text)} placeholder="Complemento" maxLength={50} />
         <SubText>Limite de 50 caracteres</SubText>
         <Text>Estado:</Text>
-        <SelectInput mb setState={setCurrentState} options={states} />
+        <SelectInput mb setState={setState} options={states} />
         {openCitySelection && (
           <View>
             <Text>Cidade:</Text>
-            <SelectInput mb setState={setCurrentCity} options={citys} />
+            <SelectInput mb setState={setCity} options={citys} />
           </View>
         )}
         <ButtonsView>

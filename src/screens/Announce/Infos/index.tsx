@@ -4,17 +4,18 @@ import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
 import theme from '../../../contexts/theme';
 import { Container, Header, Title, Text, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
+import { useAnnounce } from '../../../contexts/AnnounceContext';
 
 const Infos = () => {
   const [bedrooms, setBedrooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
   const [parkingSpace, setParkingSpace] = useState('');
+  const navigation = useNavigation();
+  const { setAnnounce } = useAnnounce();
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
   }, []);
-
-  const navigation = useNavigation();
 
   const closeModal = () => {
     StatusBar.setBackgroundColor(theme.colors.blue);
@@ -40,6 +41,12 @@ const Infos = () => {
     if (parseInt(bedrooms) > 0) {
       if (parseInt(bathrooms) > 0) {
         if (parseInt(parkingSpace) >= 0) {
+          setAnnounce((state) => ({
+            ...state,
+            bedrooms,
+            bathrooms,
+            parkingSpace,
+          }));
           navigation.navigate('Pictures');
         } else {
           alert('Digite um número de vagas válido para continuar');

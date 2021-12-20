@@ -4,15 +4,16 @@ import { useNavigation } from '@react-navigation/native';
 import theme from '../../../contexts/theme';
 import * as ImagePicker from 'expo-image-picker';
 import { Container, Header, Title, PictureView, Text, CloseButton, Icon, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
+import { useAnnounce } from '../../../contexts/AnnounceContext';
 
 const Infos = () => {
   const [mainPicture, setMainPicture] = useState(null);
+  const navigation = useNavigation();
+  const { setAnnounce } = useAnnounce();
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
   }, []);
-
-  const navigation = useNavigation();
 
   const closeModal = () => {
     StatusBar.setBackgroundColor(theme.colors.blue);
@@ -38,6 +39,10 @@ const Infos = () => {
 
   const submitAnnounce = () => {
     if (mainPicture) {
+      setAnnounce((state) => ({
+        ...state,
+        mainPicture,
+      }));
       StatusBar.setBackgroundColor(theme.colors.blue);
       navigation.navigate('Home');
       alert('Imóvel cadastrado com sucesso!');
