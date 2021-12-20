@@ -9,6 +9,7 @@ export const Container = styled.View`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 20px;
   background-color: ${({theme}) => theme.colors.white};
 `;
@@ -43,19 +44,38 @@ export const Title = styled.Text`
   max-width: 80%;
 `;
 
+export const PictureView = styled.View`
+  height: 300px;
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 3px dashed black;
+  border-radius: 1px;
+  margin-bottom: 20px;
+`;
+
 export const Text = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
-  margin-bottom: 10px;
 `;
 
 export const ButtonsView = styled.View`
-  width: 100%;
+  width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+`;
+
+export const ButtonMax = styled(RectButton)`
+  width: 300px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: #EEEEEE;
+  margin-bottom: 100px;
 `;
 
 export const Button = styled(RectButton)`
