@@ -1,5 +1,5 @@
-import firebase from 'firebase';
-import 'firebase/storage';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 const { API_KEY } = process.env;
 const { AUTH_DOMAIN } = process.env;
 const { DATABASE_URL } = process.env;

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar, Platform, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import database from '../../../../firebase';
 import theme from '../../../contexts/theme';
 import * as ImagePicker from 'expo-image-picker';
 import { Container, Header, Title, PictureView, Text, CloseButton, Icon, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const Infos = () => {
   const [mainPicture, setMainPicture] = useState(null);
   const navigation = useNavigation();
-  const { setAnnounce } = useAnnounce();
+  const { announce, setAnnounce } = useAnnounce();
+  const { user } = useAuth();
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
@@ -37,12 +40,30 @@ const Infos = () => {
     }
   };
 
-  const submitAnnounce = () => {
+  const submitAnnounce = async () => {
     if (mainPicture) {
-      setAnnounce((state) => ({
+      await setAnnounce((state) => ({
         ...state,
         mainPicture,
       }));
+      await database.collection('announce').add({
+        title: announce.title,
+        description: announce.description,
+        price: announce.price,
+        address: announce.address,
+        number: announce.number,
+        complement: announce.complement,
+        state: announce.state,
+        city: announce.city,
+        bedrooms: announce.bedrooms,
+        bathrooms: announce.bathrooms,
+        parkingSpace: announce.parkingSpace,
+        mainPicture: announce.mainPicture,
+        advertiserEmail: user.email,
+        advertiserFirstname: user.firstName,
+        advertiserLastname: user.lastName,
+        advertiserPicture: user.picture,
+      });
       StatusBar.setBackgroundColor(theme.colors.blue);
       navigation.navigate('Home');
       alert('Imóvel cadastrado com sucesso!');
