@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/storage';
+
 const { API_KEY } = process.env;
 const { AUTH_DOMAIN } = process.env;
 const { DATABASE_URL } = process.env;
@@ -21,4 +23,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.firestore();
-export default database;
+const storage = firebase.storage();
+
+export {
+  database,
+  storage,
+};

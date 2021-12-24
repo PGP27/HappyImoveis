@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar, Platform, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import database from '../../../../firebase';
+import { database } from '../../../../firebase';
 import theme from '../../../contexts/theme';
 import * as ImagePicker from 'expo-image-picker';
 import { Container, Header, Title, PictureView, Text, CloseButton, Icon, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
 import { useAuth } from '../../../contexts/AuthContext';
+import { v4 as uuid } from 'uuid';
 
 const Infos = () => {
   const [mainPicture, setMainPicture] = useState(null);
+  const [mainPictureId, setMainPictureId] = useState('');
   const navigation = useNavigation();
   const { announce, setAnnounce } = useAnnounce();
   const { user } = useAuth();
@@ -17,7 +19,7 @@ const Infos = () => {
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
   }, []);
-
+  
   const closeModal = () => {
     StatusBar.setBackgroundColor(theme.colors.blue);
     navigation.navigate('Home');
@@ -42,11 +44,13 @@ const Infos = () => {
 
   const submitAnnounce = async () => {
     if (mainPicture) {
+      setMainPictureId(uuid()); 
       await setAnnounce((state) => ({
         ...state,
         mainPicture,
       }));
       await database.collection('announce').add({
+        id: uuid(),
         title: announce.title,
         description: announce.description,
         price: announce.price,
@@ -58,11 +62,8 @@ const Infos = () => {
         bedrooms: announce.bedrooms,
         bathrooms: announce.bathrooms,
         parkingSpace: announce.parkingSpace,
-        mainPicture: announce.mainPicture,
-        advertiserEmail: user.email,
-        advertiserFirstname: user.firstName,
-        advertiserLastname: user.lastName,
-        advertiserPicture: user.picture,
+        mainPictureId: mainPictureId,
+        advertiserId: user.id,
       });
       StatusBar.setBackgroundColor(theme.colors.blue);
       navigation.navigate('Home');

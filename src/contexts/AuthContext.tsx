@@ -1,7 +1,10 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 import * as AuthSession from 'expo-auth-session';
+import { database, storage } from '../../firebase';
 const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
+import 'react-native-get-random-values';
+import { v4 as uuid } from 'uuid';
 
 interface AuthContextProps {
   user: User;
@@ -25,12 +28,15 @@ interface User {
   lastName: string;
   email: string;
   picture?: string;
+  pictureId?: string;
 };
 
 const AuthContext = createContext({} as AuthContextProps);
 
 const AuthProvider = ({children}: AuthProviderProps ) => {
   const [user, setUser] = useState<User>({} as User);
+  const [userId] = useState(uuid());
+  const [userPictureId] = useState(uuid());
 
   const googleSignIn = async () => {
     try {
@@ -43,12 +49,25 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
         const response = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?alt=json&access_token=${params.access_token}`);
         const userInfo = await response.json();
         setUser({
-          id: userInfo.id,
+          id: userId,
           firstName: userInfo.given_name,
           lastName: userInfo.family_name,
           email: userInfo.email,
           picture: userInfo.picture,
+          pictureId: userPictureId,
         });
+        const getAllUsers = await database.collection('users').get();
+        const allUsers = getAllUsers.docs.map((doc) => doc.data());
+        if (!allUsers.some(({ email }) => email === userInfo.email)) {
+          await storage.ref(userPictureId).putString(userInfo.picture)
+          await database.collection('users').add({
+            id: userId,
+            firstName: userInfo.given_name,
+            lastName: userInfo.family_name,
+            email: userInfo.email,
+            pictureId: userPictureId,
+          });
+        }
       }
     } catch(error) {
       throw new Error (error);
