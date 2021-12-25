@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar, Platform, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { database } from '../../../../firebase';
+import { database, storage } from '../../../../firebase';
 import theme from '../../../contexts/theme';
 import * as ImagePicker from 'expo-image-picker';
 import { Container, Header, Title, PictureView, Text, CloseButton, Icon, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
 import { useAuth } from '../../../contexts/AuthContext';
-import { v4 as uuid } from 'uuid';
+import { stringify, v4 as uuid } from 'uuid';
 
 const Infos = () => {
   const [mainPicture, setMainPicture] = useState(null);
-  const [mainPictureId, setMainPictureId] = useState('');
+  const [mainPictureId] = useState(uuid());
   const navigation = useNavigation();
-  const { announce, setAnnounce } = useAnnounce();
+  const { announce } = useAnnounce();
   const { user } = useAuth();
 
   useEffect(() => {
     StatusBar.setBackgroundColor('white');
   }, []);
+
+  const getBlobFromURI =  async (uri: string) => {
+    const blob = await (await fetch(uri)).blob();
+    return blob;
+  }
   
   const closeModal = () => {
     StatusBar.setBackgroundColor(theme.colors.blue);
@@ -44,12 +49,12 @@ const Infos = () => {
 
   const submitAnnounce = async () => {
     if (mainPicture) {
-      setMainPictureId(uuid()); 
-      await setAnnounce((state) => ({
-        ...state,
-        mainPicture,
-      }));
-      await database.collection('announce').add({
+      const getAllUsers = await database.collection('users').get();
+      const allUsers = getAllUsers.docs.map((doc) => doc.data());
+      const currentUser = allUsers.find(({ email }) => email === user.email);
+      const blob = await getBlobFromURI(mainPicture);
+      await storage.ref(`announces/${currentUser.id}`).child(mainPictureId).put(blob);
+      await database.collection('announces').add({
         id: uuid(),
         title: announce.title,
         description: announce.description,
@@ -63,7 +68,7 @@ const Infos = () => {
         bathrooms: announce.bathrooms,
         parkingSpace: announce.parkingSpace,
         mainPictureId: mainPictureId,
-        advertiserId: user.id,
+        advertiserId: currentUser.id,
       });
       StatusBar.setBackgroundColor(theme.colors.blue);
       navigation.navigate('Home');

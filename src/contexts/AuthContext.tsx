@@ -65,7 +65,7 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
         const allUsers = getAllUsers.docs.map((doc) => doc.data());
         if (!allUsers.some(({ email }) => email === userInfo.email)) {
           const blob = await getBlobFromURI(userInfo.picture);
-          await storage.ref(userPictureId).put(blob);
+          await storage.ref('users/').child(userPictureId).put(blob);
           await database.collection('users').add({
             id: userId,
             firstName: userInfo.given_name,
