@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'react-native';
 import Search from '../../modals/Search';
 import { Container, Button, Title, Icon } from './styles';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 
 const NavigationBar = () => {
   const [openSearchModal, setOpenSearchModal] = useState(false);

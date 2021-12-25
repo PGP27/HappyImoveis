@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 import theme from '../../contexts/theme';
 import { Container, Header, ProfileInfo, Image, FullName, Name, CloseButton, CloseIcon, List, Option, HeartIcon, PriceIcon, OutIcon, Text } from './styles';
 
