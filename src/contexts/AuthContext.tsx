@@ -38,6 +38,11 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
   const [userId] = useState(uuid());
   const [userPictureId] = useState(uuid());
 
+  const getBlobFromURI =  async (uri: string) => {
+    const blob = await (await fetch(uri)).blob();
+    return blob;
+  }
+
   const googleSignIn = async () => {
     try {
       const RESPONSE_TYPE = 'token';
@@ -59,7 +64,8 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
         const getAllUsers = await database.collection('users').get();
         const allUsers = getAllUsers.docs.map((doc) => doc.data());
         if (!allUsers.some(({ email }) => email === userInfo.email)) {
-          await storage.ref(userPictureId).putString(userInfo.picture)
+          const blob = await getBlobFromURI(userInfo.picture);
+          await storage.ref(userPictureId).put(blob);
           await database.collection('users').add({
             id: userId,
             firstName: userInfo.given_name,
