@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/core';
 import theme from '../../contexts/theme';
 import { Container, Header, ProfileInfo, Image, FullName, Name, CloseButton, CloseIcon, List, Option, HeartIcon, PriceIcon, OutIcon, Text } from './styles';
 
@@ -15,6 +16,7 @@ const Profile = ({ setOpenProfileModal }) => {
   };
 
   const { user } = useAuth();
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -35,7 +37,7 @@ const Profile = ({ setOpenProfileModal }) => {
           <HeartIcon name="heart" />
           <Text>Favoritos</Text>
         </Option>
-        <Option>
+        <Option onPress={() => navigation.navigate('MyAnnounces')}>
           <PriceIcon name="pricetag" />
           <Text>Meus anúncios</Text>
         </Option>

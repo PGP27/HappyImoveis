@@ -7,9 +7,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { Container, Header, Title, PictureView, Text, CloseButton, Icon, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
 import { useAuth } from '../../../contexts/AuthContext';
-import { stringify, v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-const Infos = () => {
+const Pictures = () => {
   const [mainPicture, setMainPicture] = useState(null);
   const [mainPictureId] = useState(uuid());
   const navigation = useNavigation();
@@ -105,4 +105,4 @@ const Infos = () => {
   );
 };
 
-export default Infos;
+export default Pictures;
