@@ -50,9 +50,11 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
       const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
   
       const { params, type } = await AuthSession.startAsync({ authUrl }) as AuthResponseProps;
+
       if (type === 'success') {
         const response = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?alt=json&access_token=${params.access_token}`);
         const userInfo = await response.json();
+
         setUser({
           id: userId,
           firstName: userInfo.given_name,
@@ -61,8 +63,10 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
           picture: userInfo.picture,
           pictureId: userPictureId,
         });
+
         const getAllUsers = await database.collection('users').get();
         const allUsers = getAllUsers.docs.map((doc) => doc.data());
+
         if (!allUsers.some(({ email }) => email === userInfo.email)) {
           const blob = await getBlobFromURI(userInfo.picture);
           await storage.ref('users/').child(userPictureId).put(blob);

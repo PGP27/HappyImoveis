@@ -4,16 +4,18 @@ import { RectButton } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 
 export const Container = styled(RectButton)`
+  width: 50%;
   display: flex;
-  flex-direction: row;
-  background-color: #eeeeee;
+  flex-direction: column;
+  background-color: #dddddd;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
 `;
 
 export const Image = styled.Image`
-  width: 50%;
+  height: 200px;
+  width: 100%;
 `;
 
 export const RightView = styled.View`
