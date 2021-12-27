@@ -7,18 +7,7 @@ import Infos from '../screens/Announce/Infos';
 import Pictures from '../screens/Announce/Pictures';
 import MyAnnounces from '../screens/MyAnnounces/';
 
-export type RootStackParamList = {
-  Home: undefined;
-  Descriptions: undefined;
-  Address: undefined;
-  Infos: undefined;
-  Pictures: undefined;
-  MyAnnounces: undefined;
-  Favorites: undefined;
-  Details: undefined;
-};
-
-const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
+const { Navigator, Screen } = createStackNavigator();
 
 const AppRoutes = () => {
   return (

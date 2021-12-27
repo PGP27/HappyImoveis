@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid';
 interface AuthContextProps {
   user: User;
   googleSignIn(): Promise<void>;
+  signOut(): Promise<void>;
 };
 
 interface AuthProviderProps {
@@ -84,8 +85,12 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
     }
   };
 
+  const signOut = async () => {
+    setUser({} as User);
+  };
+
   return(
-    <AuthContext.Provider value={{user, googleSignIn}}>
+    <AuthContext.Provider value={{user, googleSignIn, signOut}}>
       {children}
     </AuthContext.Provider>
   );

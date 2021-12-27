@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-native';
-import Search from '../../modals/Search';
+import Search from '../../screens/Search';
 import { Container, Button, Title, Icon } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
@@ -22,6 +22,10 @@ const NavigationBar = () => {
       <Button onPress={() => navigation.navigate('Descriptions')}>
         <Icon name="pricetag" />
         <Title>Anunciar</Title>
+      </Button>
+      <Button onPress={() => navigation.navigate('Descriptions')}>
+        <Icon name="person" />
+        <Title>Perfil</Title>
       </Button>
       <Modal visible={openSearchModal} animationType="slide">
         <Search setOpenSearchModal={setOpenSearchModal} />

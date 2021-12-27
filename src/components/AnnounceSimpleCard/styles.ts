@@ -3,8 +3,7 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 
-export const Container = styled(RectButton)`
-  width: 50%;
+export const Container = styled.View`
   display: flex;
   flex-direction: column;
   background-color: #dddddd;
@@ -13,21 +12,29 @@ export const Container = styled(RectButton)`
   margin: 10px;
 `;
 
+export const Title = styled.Text`
+  font-family: ${({theme}) => theme.fonts.regular};
+  font-size: ${RFValue(15)}px;
+  color: black;
+  padding-bottom: 15px;
+`;
+
 export const Image = styled.Image`
   height: 200px;
   width: 100%;
 `;
 
-export const RightView = styled.View`
-  width: 50%;
+export const OptionsView = styled.View`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-export const Title = styled.Text`
+export const Details = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(16)}px;
-  color: black;
+  color: #3090ee;
 `;
 
 export const IconsView = styled.View`
@@ -35,8 +42,14 @@ export const IconsView = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
+`;
+
+export const Button = styled.TouchableOpacity`
+  padding: 5px 10px;
+  margin-left: 20px;
 `;
 
 export const Icon = styled(AntDesign)`
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(18)}px;
 `;

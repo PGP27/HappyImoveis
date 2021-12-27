@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, StatusBar } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
 import theme from '../../contexts/theme';
-import Profile from '../../modals/Profile';
+import Profile from '../../screens/Profile';
 import { Container, Logo, Title, Icon, ProfileButton, ProfileImage } from './styles';
 
 const Header = () => {

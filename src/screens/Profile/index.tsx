@@ -4,10 +4,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import theme from '../../contexts/theme';
 import { Container, Header, ProfileInfo, Image, FullName, Name, CloseButton, CloseIcon, List, Option, HeartIcon, PriceIcon, OutIcon, Text } from './styles';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../routes/app.routes';
-
-type myAnnouncesScreenProp = StackNavigationProp<RootStackParamList, 'MyAnnounces'>;
 
 const Profile = ({ setOpenProfileModal }) => {
   useEffect(() => {
@@ -19,8 +15,8 @@ const Profile = ({ setOpenProfileModal }) => {
     setOpenProfileModal(false);
   };
 
-  const { user } = useAuth();
-  const navigation = useNavigation<myAnnouncesScreenProp>();
+  const { user, signOut } = useAuth();
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -45,7 +41,7 @@ const Profile = ({ setOpenProfileModal }) => {
           <PriceIcon name="pricetag" />
           <Text>Meus anúncios</Text>
         </Option>
-        <Option>
+        <Option onPress={() => signOut()}>
           <OutIcon name="logout" />
           <Text>Sair</Text>
         </Option>
