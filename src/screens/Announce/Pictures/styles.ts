@@ -11,7 +11,7 @@ export const Container = styled.View`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: ${({theme}) => theme.colors.white};
+  background-color: white;
 `;
 
 export const Header = styled.View`
@@ -87,6 +87,5 @@ export const Button = styled(RectButton)`
 export const ButtonText = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(20)}px;
-  color: ${({theme}) => theme.colors.black};
   text-align: center;
 `;

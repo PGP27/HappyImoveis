@@ -13,7 +13,7 @@ export const Container = styled.View`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({theme}) => theme.colors.blue};
+  background-color: black;
 `;
 
 export const Center = styled.View`
@@ -41,11 +41,11 @@ export const Title = styled.Text`
   font-family: ${({theme}) => theme.fonts.bold} ;
   text-align: center;
   font-size: ${RFValue(42)}px;
-  color: ${({theme}) => theme.colors.white};
+  color: white;
 `;
 
 export const Icon = styled(MaterialCommunityIcons)`
-  color: ${({theme}) => theme.colors.white};
+  color: white;
   font-size: ${RFValue(100)}px;
 `;
 
@@ -53,5 +53,5 @@ export const Welcome = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular} ;
   font-size: ${RFValue(21)}px;
   text-align: center;
-  color: ${({theme}) => theme.colors.white};
+  color: white;
 `;

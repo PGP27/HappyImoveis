@@ -45,7 +45,6 @@ const Address = () => {
   }, [state]);
 
   const closeModal = () => {
-    StatusBar.setBackgroundColor(theme.colors.blue);
     navigation.navigate('Home');
   };
 

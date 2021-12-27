@@ -9,7 +9,7 @@ export const Button = styled(RectButton)`
   flex-direction: row;
   align-items: center;
   border-radius: 5px;
-  background-color: ${({theme}) => theme.colors.white};
+  background-color: white;
   margin: 10px 0px;
 `;
 
@@ -21,6 +21,5 @@ export const Icon = styled(FontAwesome)`
 export const Text = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
-  color: ${({theme}) => theme.colors.black};
   padding: 10px;
 `;

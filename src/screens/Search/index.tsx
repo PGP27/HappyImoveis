@@ -11,7 +11,6 @@ const Search = ({ setOpenSearchModal }) => {
   }, []);
 
   const closeModal = () => {
-    StatusBar.setBackgroundColor(theme.colors.blue);
     setOpenSearchModal(false);
   };
 

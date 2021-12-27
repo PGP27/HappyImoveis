@@ -26,7 +26,6 @@ const Pictures = () => {
   }
   
   const closeModal = () => {
-    StatusBar.setBackgroundColor(theme.colors.blue);
     navigation.navigate('Home');
   };
 
@@ -70,7 +69,6 @@ const Pictures = () => {
         mainPictureId: mainPictureId,
         advertiserId: currentUser.id,
       });
-      StatusBar.setBackgroundColor(theme.colors.blue);
       navigation.navigate('Home');
       alert('Imóvel cadastrado com sucesso!');
     } else {

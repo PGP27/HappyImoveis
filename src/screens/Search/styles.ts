@@ -70,7 +70,7 @@ export const OptionButton = styled.TouchableOpacity<OptionButtonProps>`
   background-color: #f0f0f0;
   margin-bottom: 2px;
   ${({selected}) => selected && css `
-    border-color: ${({theme}) => theme.colors.green};
+    border-color: #006600;
     background-color: #eeffee;
   `}
 `;
@@ -80,6 +80,6 @@ export const OptionText = styled.Text<OptionTextProps>`
   font-size: ${RFValue(18)}px;
   color: black;
   ${({selected}) => selected && css `
-    color: ${({theme}) => theme.colors.green};
+    color: #006600};
   `}
 `;

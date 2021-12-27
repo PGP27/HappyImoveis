@@ -1,19 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Main, Row } from './styles';
 import Header from '../../components/Header';
 import NavigationBar from '../../components/NavigationBar';
-import { StatusBar } from 'react-native';
-import theme from '../../contexts/theme';
 import HomeOption from '../../components/HomeOption';
 
 const Home = () => {
-  useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.blue);
-  }, []);
-
   return (
     <Container>
-      <Header />
+      <Header pageName="Home" />
       <Main>
         <Row>
           <HomeOption flexDirection='column' iconName='house-user' text='À venda' />
@@ -28,7 +22,7 @@ const Home = () => {
           <HomeOption flexDirection='column' iconName='building' text='Grandiosos' />
         </Row>
       </Main>
-      <NavigationBar />
+      <NavigationBar selected="Home" />
     </Container>
   );
 };

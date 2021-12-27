@@ -11,7 +11,6 @@ const Profile = ({ setOpenProfileModal }) => {
   }, []);
 
   const closeModal = () => {
-    StatusBar.setBackgroundColor(theme.colors.blue);
     setOpenProfileModal(false);
   };
 

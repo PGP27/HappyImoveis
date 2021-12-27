@@ -18,7 +18,6 @@ const Infos = () => {
   }, []);
 
   const closeModal = () => {
-    StatusBar.setBackgroundColor(theme.colors.blue);
     navigation.navigate('Home');
   };
 

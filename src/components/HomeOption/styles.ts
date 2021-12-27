@@ -33,6 +33,5 @@ export const Icon = styled(FontAwesome5)`
 export const Text = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
-  color: ${({theme}) => theme.colors.black};
   text-align: right;
 `;
