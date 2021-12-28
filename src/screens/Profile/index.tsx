@@ -1,36 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import theme from '../../contexts/theme';
-import { Container, Header, ProfileInfo, Image, FullName, Name, CloseButton, CloseIcon, List, Option, HeartIcon, PriceIcon, OutIcon, Text } from './styles';
+import NavigationBar from '../../components/NavigationBar';
+import { Container, ProfileInfo, Image, FullName, Name, List, Option, HeartIcon, PriceIcon, OutIcon, Text } from './styles';
 
-const Profile = ({ setOpenProfileModal }) => {
-  useEffect(() => {
-    StatusBar.setBackgroundColor('white');
-  }, []);
-
-  const closeModal = () => {
-    setOpenProfileModal(false);
-  };
-
+const Profile = () => {
   const { user, signOut } = useAuth();
   const navigation = useNavigation();
 
   return (
     <Container>
-      <Header>
-        <ProfileInfo>
-          <Image source={{uri: user.picture}} />
-          <FullName>
-            <Name>{user.firstName}</Name>
-            <Name>{user.lastName}</Name>
-          </FullName>
-        </ProfileInfo>
-        <CloseButton onPress={closeModal}>
-          <CloseIcon name="close" />
-        </CloseButton>
-      </Header>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <ProfileInfo>
+        <Image source={{uri: user.picture}} />
+        <FullName>
+          <Name>{user.firstName}</Name>
+          <Name>{user.lastName}</Name>
+        </FullName>
+      </ProfileInfo>
       <List>
         <Option>
           <HeartIcon name="heart" />
@@ -45,6 +33,7 @@ const Profile = ({ setOpenProfileModal }) => {
           <Text>Sair</Text>
         </Option>
       </List>
+      <NavigationBar selected="Profile" />
     </Container>
   );
 };

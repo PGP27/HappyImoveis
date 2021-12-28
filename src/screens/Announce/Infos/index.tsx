@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
-import theme from '../../../contexts/theme';
-import { Container, Header, Title, Text, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
+import { Container, Text, ButtonsView, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
+import AnnounceSubHeader from '../../../components/AnnounceSubHeader';
+import Header from '../../../components/Header';
 
 const Infos = () => {
   const [bedrooms, setBedrooms] = useState('');
@@ -12,14 +13,6 @@ const Infos = () => {
   const [parkingSpace, setParkingSpace] = useState('');
   const navigation = useNavigation();
   const { setAnnounce } = useAnnounce();
-
-  useEffect(() => {
-    StatusBar.setBackgroundColor('white');
-  }, []);
-
-  const closeModal = () => {
-    navigation.navigate('Home');
-  };
 
   const handleChangeNumber = (text, setState) => {
     const onlyNumbers = /^\d*$/;
@@ -60,26 +53,25 @@ const Infos = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Digite as informações do imóvel</Title>
-        <CloseButton onPress={closeModal}>
-          <Icon name="close" />
-        </CloseButton>
-      </Header>
-      <Text>Quartos:</Text>
-      <TextInput keyboardType='numeric' value={bedrooms} onChangeText={(text) => handleChangeNumber(text, setBedrooms)} onBlur={() => fixNumber(bedrooms, setBedrooms)} mb placeholder="Quantidades de quartos do imóvel" maxLength={2} />
-      <Text>Banheiros:</Text>
-      <TextInput keyboardType='numeric' value={bathrooms} onChangeText={(text) => handleChangeNumber(text, setBathrooms)} onBlur={() => fixNumber(bathrooms, setBathrooms)} mb placeholder="Quantidades de banheiros do imóvel" maxLength={2} />
-      <Text>Vagas:</Text>
-      <TextInput keyboardType='numeric' value={parkingSpace} onChangeText={(text) => handleChangeNumber(text, setParkingSpace)} onBlur={() => fixNumber(parkingSpace, setParkingSpace)} mb placeholder="Quantidades de vagas do imóvel" maxLength={2} />
-      <ButtonsView>
-        <Button onPress={() => navigation.goBack()}>
-          <ButtonText>Voltar</ButtonText>
-        </Button>
-        <Button onPress={verifyForm}>
-          <ButtonText>Próximo</ButtonText>
-        </Button>
-      </ButtonsView>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <Header pageName="Anunciar" />
+      <View style={{padding: 20}}>
+        <AnnounceSubHeader text="Digite as informações do imóvel" />
+        <Text>Quartos:</Text>
+        <TextInput keyboardType='numeric' value={bedrooms} onChangeText={(text) => handleChangeNumber(text, setBedrooms)} onBlur={() => fixNumber(bedrooms, setBedrooms)} mb placeholder="Quantidades de quartos do imóvel" maxLength={2} />
+        <Text>Banheiros:</Text>
+        <TextInput keyboardType='numeric' value={bathrooms} onChangeText={(text) => handleChangeNumber(text, setBathrooms)} onBlur={() => fixNumber(bathrooms, setBathrooms)} mb placeholder="Quantidades de banheiros do imóvel" maxLength={2} />
+        <Text>Vagas:</Text>
+        <TextInput keyboardType='numeric' value={parkingSpace} onChangeText={(text) => handleChangeNumber(text, setParkingSpace)} onBlur={() => fixNumber(parkingSpace, setParkingSpace)} mb placeholder="Quantidades de vagas do imóvel" maxLength={2} />
+        <ButtonsView>
+          <Button onPress={() => navigation.goBack()}>
+            <ButtonText>Voltar</ButtonText>
+          </Button>
+          <Button onPress={verifyForm}>
+            <ButtonText>Próximo</ButtonText>
+          </Button>
+        </ButtonsView>
+      </View>
     </Container>
   );
 };

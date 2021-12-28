@@ -3,11 +3,12 @@ import { StatusBar, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
-import theme from '../../../contexts/theme';
-import { Container, Header, Title, Text, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
 import { SubText } from '../Descriptions/styles';
 import SelectInput from '../../../components/SelectInput';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
+import Header from '../../../components/Header';
+import { Container, Text, ButtonsView, Button, ButtonText } from './styles';
+import AnnounceSubHeader from '../../../components/AnnounceSubHeader';
 
 const Address = () => {
   const [address, setAddress] = useState('');
@@ -22,7 +23,6 @@ const Address = () => {
   const { setAnnounce } = useAnnounce();
 
   useEffect(() => {
-    StatusBar.setBackgroundColor('white');
     const getStates = async () => {
       const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/');
       const obj = await response.json();
@@ -93,38 +93,37 @@ const Address = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Digite o endereço do imóvel</Title>
-        <CloseButton onPress={closeModal}>
-          <Icon name="close" />
-        </CloseButton>
-      </Header>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>Endereço:</Text>
-        <TextInput value={address} onChangeText={(text) => setAddress(text)} placeholder="Endereço" maxLength={100} />
-        <SubText>Limite de 100 caracteres</SubText>
-        <Text>Número:</Text>
-        <TextInput keyboardType='numeric' value={number} onChangeText={(text) => handleChangeNumber(text)} onBlur={fixNumber} mb placeholder="Número" maxLength={5} />
-        <Text>Complemento:</Text>
-        <TextInput value={complement} onChangeText={(text) => setComplement(text)} placeholder="Complemento" maxLength={50} />
-        <SubText>Limite de 50 caracteres</SubText>
-        <Text>Estado:</Text>
-        <SelectInput mb setState={setState} options={states} />
-        {openCitySelection && (
-          <View>
-            <Text>Cidade:</Text>
-            <SelectInput mb setState={setCity} options={citys} />
-          </View>
-        )}
-        <ButtonsView>
-          <Button onPress={() => navigation.goBack()}>
-            <ButtonText>Voltar</ButtonText>
-          </Button>
-          <Button onPress={verifyForm}>
-            <ButtonText>Próximo</ButtonText>
-          </Button>
-        </ButtonsView>
-      </ScrollView>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <Header pageName="Anunciar" />
+      <View style={{flex: 1, padding: 20}}>
+        <AnnounceSubHeader text="Digite o endereço do imóvel" />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text>Endereço:</Text>
+          <TextInput value={address} onChangeText={(text) => setAddress(text)} placeholder="Endereço" maxLength={100} />
+          <SubText>Limite de 100 caracteres</SubText>
+          <Text>Número:</Text>
+          <TextInput keyboardType='numeric' value={number} onChangeText={(text) => handleChangeNumber(text)} onBlur={fixNumber} mb placeholder="Número" maxLength={5} />
+          <Text>Complemento:</Text>
+          <TextInput value={complement} onChangeText={(text) => setComplement(text)} placeholder="Complemento" maxLength={50} />
+          <SubText>Limite de 50 caracteres</SubText>
+          <Text>Estado:</Text>
+          <SelectInput mb setState={setState} options={states} />
+          {openCitySelection && (
+            <View>
+              <Text>Cidade:</Text>
+              <SelectInput mb setState={setCity} options={citys} />
+            </View>
+          )}
+          <ButtonsView>
+            <Button onPress={() => navigation.goBack()}>
+              <ButtonText>Voltar</ButtonText>
+            </Button>
+            <Button onPress={verifyForm}>
+              <ButtonText>Próximo</ButtonText>
+            </Button>
+          </ButtonsView>
+        </ScrollView>
+      </View>
     </Container>
   );
 };

@@ -7,20 +7,14 @@ export const Container = styled.View`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-`;
-
-export const Header = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 50px;
+  background-color: white;
 `;
 
 export const ProfileInfo = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 20px 10px;
 `;
 
 export const Image = styled.Image`
@@ -40,23 +34,11 @@ export const Name = styled.Text`
   font-size: ${RFValue(18)}px;
 `;
 
-export const CloseButton = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  margin-left: 20px;
-  margin-right: 10px;
-`;
-
-export const CloseIcon = styled(AntDesign)`
-  font-size: ${RFValue(26)}px;
-`;
-
 export const List = styled.View`
+  flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 `;
 
 export const Option = styled.TouchableOpacity`

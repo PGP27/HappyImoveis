@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import TextInput from '../../../components/TextInput';
-import theme from '../../../contexts/theme';
-import { Container, Header, Title, Text, SubText, CloseButton, Icon, ButtonsView, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
+import TextInput from '../../../components/TextInput';
+import { Container, Text, SubText, ButtonsView, Button, ButtonText } from './styles';
+import Header from '../../../components/Header';
+import AnnounceSubHeader from '../../../components/AnnounceSubHeader';
 
 const Descriptions = () => {
   const [title, setTitle] = useState('');
@@ -14,18 +15,10 @@ const Descriptions = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    StatusBar.setBackgroundColor('white');
-  }, []);
-
-  useEffect(() => {
     if (price === 'NaN' || parseFloat(price.replace(',', '.')) === 0) {
       setPrice('');
     }
   }, [price]);
-
-  const closeModal = () => {
-    navigation.navigate('Home');
-  };
 
   const handleChangePrice = (text: string) => {
       const onlyNumbers = /^\d*,?\d*$/;
@@ -66,25 +59,24 @@ const Descriptions = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Digite as descrições do imóvel</Title>
-        <CloseButton onPress={closeModal}>
-          <Icon name="close" />
-        </CloseButton>
-      </Header>
-      <Text>Título:</Text>
-      <TextInput value={title} onChangeText={(text) => setTitle(text)} placeholder="Título do imóvel" maxLength={40} />
-      <SubText>Limite de 40 caracteres</SubText>
-      <Text>Descrição:</Text>
-      <TextInput value={description} onChangeText={(text) => setDescription(text)} placeholder="Descrição do imóvel" maxLength={200} />
-      <SubText>Limite de 200 caracteres</SubText>
-      <Text>Preço:</Text>
-      <TextInput mb keyboardType='numeric' value={price} onChangeText={(text) => handleChangePrice(text)} onBlur={fixPrice} placeholder="Preço do imóvel" />
-      <ButtonsView>
-        <Button onPress={verifyForm}>
-          <ButtonText>Próximo</ButtonText>
-        </Button>
-      </ButtonsView>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <Header pageName="Anunciar" />
+      <View style={{padding: 20}}>
+        <AnnounceSubHeader text="Digite as descrições do imóvel" />
+        <Text>Título:</Text>
+        <TextInput value={title} onChangeText={(text) => setTitle(text)} placeholder="Título do imóvel" maxLength={40} />
+        <SubText>Limite de 40 caracteres</SubText>
+        <Text>Descrição:</Text>
+        <TextInput value={description} onChangeText={(text) => setDescription(text)} placeholder="Descrição do imóvel" maxLength={200} />
+        <SubText>Limite de 200 caracteres</SubText>
+        <Text>Preço:</Text>
+        <TextInput mb keyboardType='numeric' value={price} onChangeText={(text) => handleChangePrice(text)} onBlur={fixPrice} placeholder="Preço do imóvel" />
+        <ButtonsView>
+          <Button onPress={verifyForm}>
+            <ButtonText>Próximo</ButtonText>
+          </Button>
+        </ButtonsView>
+      </View>
     </Container>
   );
 };

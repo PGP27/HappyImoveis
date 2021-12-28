@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { StatusBar, Platform, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StatusBar, Platform, Image, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { database, storage } from '../../../../firebase';
-import theme from '../../../contexts/theme';
 import * as ImagePicker from 'expo-image-picker';
-import { Container, Header, Title, PictureView, Text, CloseButton, Icon, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
+import { Container, PictureView, Text, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
 import { useAuth } from '../../../contexts/AuthContext';
 import { v4 as uuid } from 'uuid';
+import Header from '../../../components/Header';
+import AnnounceSubHeader from '../../../components/AnnounceSubHeader';
 
 const Pictures = () => {
   const [mainPicture, setMainPicture] = useState(null);
@@ -16,18 +17,10 @@ const Pictures = () => {
   const { announce } = useAnnounce();
   const { user } = useAuth();
 
-  useEffect(() => {
-    StatusBar.setBackgroundColor('white');
-  }, []);
-
   const getBlobFromURI =  async (uri: string) => {
     const blob = await (await fetch(uri)).blob();
     return blob;
   }
-  
-  const closeModal = () => {
-    navigation.navigate('Home');
-  };
 
   const pickImage = async () => {
     if (Platform.OS !== 'web') {
@@ -78,27 +71,26 @@ const Pictures = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Fotos do imóvel</Title>
-        <CloseButton onPress={closeModal}>
-          <Icon name="close" />
-        </CloseButton>
-      </Header>
-      <PictureView>
-        {!mainPicture && <Text>Foto do imóvel</Text>}
-        {mainPicture && <Image source={{ uri: mainPicture }} style={{ width: 300, height: 300 }} />}
-      </PictureView>
-      <ButtonMax onPress={pickImage}>
-        <ButtonText>Adicionar foto</ButtonText>
-      </ButtonMax>
-      <ButtonsView>
-        <Button onPress={() => navigation.goBack()}>
-          <ButtonText>Voltar</ButtonText>
-        </Button>
-        <Button onPress={submitAnnounce}>
-          <ButtonText>Concluir</ButtonText>
-        </Button>
-      </ButtonsView>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <Header pageName="Anunciar" />
+      <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 20}}>
+        <AnnounceSubHeader text="Foto principal do imóvel" />
+        <PictureView>
+          {!mainPicture && <Text>Foto do imóvel</Text>}
+          {mainPicture && <Image source={{ uri: mainPicture }} style={{ width: 300, height: 300 }} />}
+        </PictureView>
+        <ButtonMax onPress={pickImage}>
+          <ButtonText>Adicionar foto</ButtonText>
+        </ButtonMax>
+        <ButtonsView>
+          <Button onPress={() => navigation.goBack()}>
+            <ButtonText>Voltar</ButtonText>
+          </Button>
+          <Button onPress={submitAnnounce}>
+            <ButtonText>Concluir</ButtonText>
+          </Button>
+        </ButtonsView>
+      </View>
     </Container>
   );
 };

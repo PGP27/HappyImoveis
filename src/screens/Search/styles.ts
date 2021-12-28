@@ -18,7 +18,7 @@ export const Container = styled.View`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  background-color: white;
 `;
 
 export const Header = styled.View`
@@ -27,42 +27,30 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
 `;
 
 export const Input = styled(TextInput)`
+  flex: 1;
   display: flex;
   align-items: center;
-  flex: 1;
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(20)}px;
   padding: 5px 0px 20px 5px;
 `;
 
-export const CloseButton = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  margin-left: 20px;
-  margin-right: 10px;
-`;
-
-export const Icon = styled(AntDesign)`
-  font-size: ${RFValue(26)}px;
-`;
-
 export const Text = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(20)}px;
-  padding: 5px;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  padding: 0px 20px;
+  margin: 20px 0px;
 `;
 
 export const SearchOptions = styled.View`
+  flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 0px 10px;
 `;
 
 export const OptionButton = styled.TouchableOpacity<OptionButtonProps>`

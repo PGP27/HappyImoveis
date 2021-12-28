@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Input, CloseButton, Icon, Text, SearchOptions, OptionButton, OptionText } from './styles';
+import { Container, Header, Input, Text, SearchOptions, OptionButton, OptionText } from './styles';
 import { StatusBar } from 'react-native';
-import theme from '../../contexts/theme';
+import NavigationBar from '../../components/NavigationBar';
 
 const Search = ({ setOpenSearchModal }) => {
   const [selectedOption, setSelectedOption] = useState('Endereço');
@@ -18,9 +18,6 @@ const Search = ({ setOpenSearchModal }) => {
     <Container>
       <Header>
         <Input placeholder="Pesquise aqui..." underlineColorAndroid="gray" />
-        <CloseButton onPress={closeModal}>
-          <Icon name="close" />
-        </CloseButton>
       </Header>
       <Text>Buscar por:</Text>
       <SearchOptions>
@@ -34,6 +31,7 @@ const Search = ({ setOpenSearchModal }) => {
           <OptionText selected={selectedOption === 'Cidade'}>Cidade</OptionText>
         </OptionButton>
       </SearchOptions>
+      <NavigationBar selected="Search" />
     </Container>
   );
 };
