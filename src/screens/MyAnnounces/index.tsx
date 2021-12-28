@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
-import { Container, Title } from './styles';
+import { StatusBar } from 'react-native';
 import { database } from '../../../firebase'
 import { useAuth } from '../../contexts/AuthContext';
 import AnnounceSimpleCard from '../../components/AnnounceSimpleCard';
 import Header from '../../components/Header';
 import NavigationBar from '../../components/NavigationBar';
+import { Container } from './styles';
 
 const MyAnnounces = () => {
   const [myAnnounces, setMyAnnounces] = useState<any>([]);
@@ -29,9 +30,9 @@ const MyAnnounces = () => {
   if (myAnnounces && userId) {
     return (
       <Container>
-        <Header />
-        <Title>Meus anúncios</Title>
-        <ScrollView style={{flex: 1}}>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
+        <Header pageName="Meus anúncios" />
+        <ScrollView style={{flex: 1, marginTop: 10}}>
           {myAnnounces.map(({ title, mainPictureId }, index) => {
             return (
               <AnnounceSimpleCard
@@ -44,7 +45,7 @@ const MyAnnounces = () => {
             );
           })}
         </ScrollView>
-        <NavigationBar />
+        <NavigationBar selected="" />
       </Container>
     );
   }
