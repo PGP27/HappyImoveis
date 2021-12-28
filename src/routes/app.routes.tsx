@@ -8,6 +8,7 @@ import Pictures from '../screens/Announce/Pictures';
 import MyAnnounces from '../screens/MyAnnounces/';
 import Search from '../screens/Search';
 import Profile from '../screens/Profile';
+import ShowAnnounces from '../screens/ShowAnnounces';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -22,7 +23,7 @@ const AppRoutes = () => {
       <Screen name="Pictures" component={Pictures} />
       <Screen name="Profile" component={Profile} />
       <Screen name="MyAnnounces" component={MyAnnounces} />
-      {/* <Screen name="Favorites" component={Favorites} /> */}
+      <Screen name="ShowAnnounces" component={ShowAnnounces} />
     </Navigator>
   );
 };

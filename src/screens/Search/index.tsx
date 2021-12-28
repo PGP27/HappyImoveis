@@ -6,14 +6,6 @@ import NavigationBar from '../../components/NavigationBar';
 const Search = ({ setOpenSearchModal }) => {
   const [selectedOption, setSelectedOption] = useState('Endereço');
 
-  useEffect(() => {
-    StatusBar.setBackgroundColor('white');
-  }, []);
-
-  const closeModal = () => {
-    setOpenSearchModal(false);
-  };
-
   return (
     <Container>
       <Header>

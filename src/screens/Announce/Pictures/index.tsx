@@ -46,8 +46,14 @@ const Pictures = () => {
       const currentUser = allUsers.find(({ email }) => email === user.email);
       const blob = await getBlobFromURI(mainPicture);
       await storage.ref(`announces/${currentUser.id}`).child(mainPictureId).put(blob);
+      const date = new Date();
       await database.collection('announces').add({
         id: uuid(),
+        date: {
+          day: date.getDate(),
+          month: date.getMonth() + 1,
+          year: date.getFullYear(),
+        },
         title: announce.title,
         description: announce.description,
         price: announce.price,

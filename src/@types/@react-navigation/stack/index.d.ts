@@ -10,5 +10,6 @@ declare namespace ReactNavigation {
     MyAnnounces: undefined
     Favorites: undefined
     Details: undefined
+    ShowAnnounces: any
   };
 };

@@ -1,6 +1,5 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 
 export const Container = styled.View`
