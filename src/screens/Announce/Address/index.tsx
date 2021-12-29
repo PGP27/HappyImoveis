@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { StatusBar, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
 import { SubText } from '../Descriptions/styles';

@@ -9,13 +9,13 @@ import { Container } from './styles';
 const ShowAnnounces = () => {
   const route = useRoute();
   const { pageName, announces }: any = route.params;
-  console.log(announces);
+
   if (announces) {
     return (
       <Container>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Header pageName={pageName} />
-        <ScrollView style={{flex: 1}}>
+        <ScrollView style={{flex: 1, marginTop: 10, padding: 20}}>
           {announces.map((announce, index) => {
             return (
               <AnnounceDetailsCard

@@ -17,11 +17,10 @@ const HomeOption = ({flexDirection, iconName, text}) => {
 
       const getAllAnnounces = await database.collection('announces').get();
       const allAnnounces = getAllAnnounces.docs.map((doc) => doc.data());
-      const otherAnnounces = allAnnounces.map(({ advertiserId }) => advertiserId !== currentUser.id);
-
+      const otherAnnounces = allAnnounces.filter(({ advertiserId }) => advertiserId !== currentUser.id);
+      
       if (text === 'Os mais baratos') {
-        console.log('oi');
-        otherAnnounces.sort((a :any, b: any) => a.price - b.price)
+        otherAnnounces.sort((a :any, b: any) => parseInt(a.price) - parseInt(b.price));
         setAnnounces(otherAnnounces);
       }
     };

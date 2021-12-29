@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import { Container, ValueView, Text, Icon, Option } from './styles';
 
 const SelectInput = ({mb, setState, options}) => {  

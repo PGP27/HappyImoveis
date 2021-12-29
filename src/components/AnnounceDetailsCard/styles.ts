@@ -7,12 +7,13 @@ interface TextProps {
 };
 
 export const Container = styled.View`
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: #dddddd;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
+  padding: 20px;
+  margin-bottom:20px;
 `;
 
 export const Title = styled.Text`
@@ -29,6 +30,7 @@ export const Image = styled.Image`
 
 export const FlexSpace = styled.View`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;

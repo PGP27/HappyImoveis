@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native-gesture-handler';
-import { StatusBar } from 'react-native';
+import { StatusBar, ScrollView } from 'react-native';
 import { database } from '../../../firebase'
 import { useAuth } from '../../contexts/AuthContext';
 import AnnounceSimpleCard from '../../components/AnnounceSimpleCard';
