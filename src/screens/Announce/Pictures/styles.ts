@@ -1,6 +1,10 @@
 import { RectButton } from 'react-native-gesture-handler';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+
+interface PictureViewProps {
+  picture: boolean;
+};
 
 export const Container = styled.View`
   height: 100%;
@@ -11,9 +15,17 @@ export const Container = styled.View`
   background-color: white;
 `;
 
-export const PictureView = styled.View`
-  height: 300px;
-  width: 300px;
+export const FullView = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+`;
+
+export const PictureView = styled.View<PictureViewProps>`
+  height: 200px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -21,6 +33,14 @@ export const PictureView = styled.View`
   border: 3px dashed black;
   border-radius: 1px;
   margin-bottom: 20px;
+  ${(({picture}) => picture && css`
+  border: 0px dashed black;
+  `)}
+`;
+
+export const Image = styled.Image`
+  height: 200px;
+  width: 100%;
 `;
 
 export const Text = styled.Text`
@@ -28,21 +48,21 @@ export const Text = styled.Text`
   font-size: ${RFValue(18)}px;
 `;
 
+export const ButtonMax = styled(RectButton)`
+  width: 100%;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: #EEEEEE;
+  margin-bottom: 100px;
+`;
+
 export const ButtonsView = styled.View`
-  width: 300px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-`;
-
-export const ButtonMax = styled(RectButton)`
-  width: 300px;
-  padding: 5px 15px;
-  border-radius: 5px;
-  background-color: #EEEEEE;
-  margin-bottom: 100px;
 `;
 
 export const Button = styled(RectButton)`

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StatusBar, Platform, Image, View } from 'react-native';
+import { StatusBar, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { database, storage } from '../../../../firebase';
 import * as ImagePicker from 'expo-image-picker';
-import { Container, PictureView, Text, ButtonsView, ButtonMax, Button, ButtonText } from './styles';
+import { Container, PictureView, Image, Text, ButtonsView, ButtonMax, Button, ButtonText, FullView } from './styles';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
 import { useAuth } from '../../../contexts/AuthContext';
 import { v4 as uuid } from 'uuid';
@@ -79,11 +79,11 @@ const Pictures = () => {
     <Container>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Header pageName="Anunciar" />
-      <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 20}}>
+      <FullView>
         <AnnounceSubHeader text="Foto principal do imóvel" />
-        <PictureView>
+        <PictureView picture={mainPicture ? true : false}>
           {!mainPicture && <Text>Foto do imóvel</Text>}
-          {mainPicture && <Image source={{ uri: mainPicture }} style={{ width: 300, height: 300 }} />}
+          {mainPicture && <Image source={{ uri: mainPicture }} />}
         </PictureView>
         <ButtonMax onPress={pickImage}>
           <ButtonText>Adicionar foto</ButtonText>
@@ -96,7 +96,7 @@ const Pictures = () => {
             <ButtonText>Concluir</ButtonText>
           </Button>
         </ButtonsView>
-      </View>
+        </FullView>
     </Container>
   );
 };
