@@ -12,7 +12,7 @@ export const Container = styled.View`
   flex-direction: column;
   background-color: #dddddd;
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   margin-bottom:20px;
 `;
 
@@ -51,10 +51,12 @@ export const FlexStart = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 10px 0px;
 `;
 
 export const Icon = styled(Ionicons)`
   font-size: ${RFValue(16)}px;
+  margin-right: 10px;
 `;
 
 export const Info = styled.View`

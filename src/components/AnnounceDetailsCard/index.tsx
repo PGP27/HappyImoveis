@@ -46,8 +46,8 @@ const AnnounceDetailsCard = ({ announce }) => {
       <Title>{title}</Title>
       <Image source={{uri: picture}} />
       <FlexSpace>
-        <Text type="price">{price}</Text>
-        <Text type="date">{date}</Text>
+        <Text type="price">{`R$ ${price}`}</Text>
+        <Text type="date">{`Anunciado em ${date.day}/${date.month}/${date.year}`}</Text>
       </FlexSpace>
       <FlexStart>
         <Icon name="earth" />
@@ -55,7 +55,7 @@ const AnnounceDetailsCard = ({ announce }) => {
       </FlexStart>
       <FlexStart>
         <Icon name="location-sharp" />
-        <Text>{`${address}, nº${number}, ${complement}`}</Text>
+        <Text>{`${address}, nº ${number}, ${complement}`}</Text>
       </FlexStart>
       <FlexSpace>
         <Info>

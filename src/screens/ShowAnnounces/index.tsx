@@ -15,7 +15,7 @@ const ShowAnnounces = () => {
       <Container>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Header pageName={pageName} />
-        <ScrollView style={{flex: 1, marginTop: 10, padding: 20}}>
+        <ScrollView style={{flex: 1, marginTop: 10, padding: 10}}>
           {announces.map((announce, index) => {
             return (
               <AnnounceDetailsCard
