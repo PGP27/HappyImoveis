@@ -43,10 +43,6 @@ const Address = () => {
     getCitys();
   }, [state]);
 
-  const closeModal = () => {
-    navigation.navigate('Home');
-  };
-
   const handleChangeNumber = (text: string) => {
     const onlyNumbers = /^\d*$/;
     if (text.match(onlyNumbers)) {
@@ -96,7 +92,7 @@ const Address = () => {
       <Header pageName="Anunciar" />
       <View style={{flex: 1, padding: 20}}>
         <AnnounceSubHeader text="Digite o endereço do imóvel" />
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           <Text>Endereço:</Text>
           <TextInput value={address} onChangeText={(text) => setAddress(text)} placeholder="Endereço" maxLength={100} />
           <SubText>Limite de 100 caracteres</SubText>

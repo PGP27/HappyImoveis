@@ -13,7 +13,7 @@ export const Container = styled.View`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
+  background-color: #304050;
 `;
 
 export const Center = styled.View`
@@ -37,6 +37,13 @@ export const FlexView = styled.View<FlexViewProps>`
   `}
 `;
 
+export const ColumnView = styled.View`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Title = styled.Text`
   font-family: ${({theme}) => theme.fonts.bold} ;
   text-align: center;
@@ -51,7 +58,7 @@ export const Icon = styled(MaterialCommunityIcons)`
 
 export const Welcome = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular} ;
-  font-size: ${RFValue(21)}px;
+  font-size: ${RFValue(24)}px;
   text-align: center;
   color: white;
 `;

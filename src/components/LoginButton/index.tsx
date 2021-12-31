@@ -13,6 +13,7 @@ const LoginButton = ({iconName, text, onPress}: Props) => {
     <Button onPress={onPress}>
       <Icon name={iconName} />
       <Text>{text}</Text>
+      <Text></Text>
     </Button>
   );
 };

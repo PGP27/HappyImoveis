@@ -1,9 +1,10 @@
 import React from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { Center, Container, FlexView, Icon, Title, Welcome } from './styles';
+import { Center, ColumnView, Container, FlexView, Icon, Title, Welcome } from './styles';
 import Triangle from '../../assets/triangle.svg';
 import LoginButton from '../../components/LoginButton';
 import { useAuth } from '../../contexts/AuthContext';
+import { StatusBar } from 'react-native';
 
 const Login = () => {
   const { googleSignIn } = useAuth();
@@ -18,10 +19,14 @@ const Login = () => {
 
   return (
     <Container>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Triangle height={RFValue(120)} width={RFValue(10000)} rotation={180} scaleX={-1}/>
       <Center>
         <FlexView flexDirection="row">
-          <Title>Happy Imóveis</Title>
+          <ColumnView>
+            <Title>Happy</Title>
+            <Title>Imóveis</Title>
+          </ColumnView>
           <Icon name="home-search" />
         </FlexView>
         <FlexView flexDirection="column">

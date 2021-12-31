@@ -20,7 +20,7 @@ const SelectInput = ({mb, setState, options}) => {
         <Icon name="caretdown" />
       </ValueView>
       {openSelectOptions && (
-        <ScrollView style={{height: 200}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{height: 200}} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           {options.map(({nome}) => nome).sort().map((option) => (
             <Option key={option} onPress={selectOption}>{option}</Option>
           ))}

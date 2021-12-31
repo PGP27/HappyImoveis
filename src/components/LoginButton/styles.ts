@@ -7,19 +7,18 @@ export const Button = styled(RectButton)`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   border-radius: 5px;
   background-color: white;
-  margin: 10px 0px;
+  padding: 10px 20px;
 `;
 
 export const Icon = styled(FontAwesome)`
   font-size: ${RFValue(24)}px;
-  padding: 10px 20px;
 `;
 
 export const Text = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(18)}px;
-  padding: 10px;
+  font-size: ${RFValue(20)}px;
 `;

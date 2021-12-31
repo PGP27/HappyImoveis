@@ -9,17 +9,17 @@ const Home = () => {
     <Container>
       <Header pageName="Home" />
       <Main>
+        {/* <Row>
+          <HomeOption iconName='house-user' text='À venda' />
+          <HomeOption iconName='handshake' text='Para alugar' />
+        </Row> */}
         <Row>
-          <HomeOption flexDirection='column' iconName='house-user' text='À venda' />
-          <HomeOption flexDirection='column' iconName='handshake' text='Para alugar' />
+          {/* <HomeOption iconName='calendar-alt' text='Últimos anúncios' /> */}
+          <HomeOption iconName='piggy-bank' text='Os mais baratos' />
         </Row>
         <Row>
-          <HomeOption flexDirection='row' iconName='calendar-alt' text='Últimos anúncios' />
-          <HomeOption flexDirection='row' iconName='piggy-bank' text='Os mais baratos' />
-        </Row>
-        <Row>
-          <HomeOption flexDirection='row' iconName='map-marker-alt' text='Pertinho de você' />
-          <HomeOption flexDirection='column' iconName='building' text='Grandiosos' />
+          {/* <HomeOption iconName='map-marker-alt' text='Pertinho de você' /> */}
+          <HomeOption iconName='building' text='Alto padrão' />
         </Row>
       </Main>
       <NavigationBar selected="Home" />

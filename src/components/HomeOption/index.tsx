@@ -1,10 +1,10 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { database } from '../../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { Container, Icon, Text } from './styles';
 
-const HomeOption = ({flexDirection, iconName, text}) => {
+const HomeOption = ({ iconName, text}) => {
   const [announces, setAnnounces] = useState([]);
   const navigation = useNavigation();
   const { user } = useAuth();
@@ -23,6 +23,10 @@ const HomeOption = ({flexDirection, iconName, text}) => {
         otherAnnounces.sort((a :any, b: any) => parseInt(a.price) - parseInt(b.price));
         setAnnounces(otherAnnounces);
       }
+      else if (text === 'Alto padrão') {
+        otherAnnounces.sort((a :any, b: any) => parseInt(a.bedrooms) - parseInt(b.bedrooms));
+        setAnnounces(otherAnnounces);
+      }
     };
     searchAnnounces();
   }, []);
@@ -32,11 +36,10 @@ const HomeOption = ({flexDirection, iconName, text}) => {
       onPress={() => navigation.navigate(
         'ShowAnnounces',
         {
-          pageName: 'Os mais baratos',
+          pageName: text,
           announces: announces,
         }
       )}
-      flexDirection={flexDirection}
     >
       <Icon name={iconName} />
       <Text>{text}</Text>
