@@ -58,7 +58,7 @@ export const Icon = styled(MaterialCommunityIcons)`
 
 export const Welcome = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular} ;
-  font-size: ${RFValue(24)}px;
+  font-size: ${RFValue(20)}px;
   text-align: center;
   color: white;
 `;

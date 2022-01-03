@@ -14,6 +14,17 @@ export const Container = styled.View`
   align-items: center;
 `;
 
+export const ButtonBorder = styled.View<Bool>`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  ${(props) => props.selected && css`
+    border-top-width: 2px;
+    border-top-color: #3040cc;
+  `}
+`;
+
 export const Button = styled(RectButton)`
   flex: 1;
   display: flex;
@@ -26,7 +37,7 @@ export const Icon = styled(Ionicons)<Bool>`
   color: black;
   font-size: ${RFValue(20)}px;
   ${(props) => props.selected && css`
-    color: blue;
+    color: #3040cc;
   `}
 `;
 
@@ -36,6 +47,6 @@ export const Title = styled.Text<Bool>`
   font-size: ${RFValue(16)}px;
   color: black;
   ${(props) => props.selected && css`
-    color: blue;
+    color: #3040cc;
   `}
 `;

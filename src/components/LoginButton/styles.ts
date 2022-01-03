@@ -15,10 +15,10 @@ export const Button = styled(RectButton)`
 `;
 
 export const Icon = styled(FontAwesome)`
-  font-size: ${RFValue(24)}px;
+  font-size: ${RFValue(20)}px;
 `;
 
 export const Text = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(20)}px;
+  font-size: ${RFValue(18)}px;
 `;

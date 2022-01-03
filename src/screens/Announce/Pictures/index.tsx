@@ -56,6 +56,7 @@ const Pictures = () => {
         },
         title: announce.title,
         description: announce.description,
+        type: announce.type,
         price: announce.price,
         address: announce.address,
         number: announce.number,
