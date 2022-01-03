@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar, Platform } from 'react-native';
+import { StatusBar, Platform, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { database, storage } from '../../../../firebase';
 import * as ImagePicker from 'expo-image-picker';
@@ -13,6 +13,7 @@ import AnnounceSubHeader from '../../../components/AnnounceSubHeader';
 const Pictures = () => {
   const [mainPicture, setMainPicture] = useState(null);
   const [mainPictureId] = useState(uuid());
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const { announce } = useAnnounce();
   const { user } = useAuth();
@@ -41,6 +42,7 @@ const Pictures = () => {
 
   const submitAnnounce = async () => {
     if (mainPicture) {
+      setLoading(true);
       const getAllUsers = await database.collection('users').get();
       const allUsers = getAllUsers.docs.map((doc) => doc.data());
       const currentUser = allUsers.find(({ email }) => email === user.email);
@@ -74,6 +76,7 @@ const Pictures = () => {
     } else {
       alert('Adicione uma foto para concluir');
     }
+    setLoading(false);
   };
 
   return (
@@ -93,8 +96,9 @@ const Pictures = () => {
           <Button onPress={() => navigation.goBack()}>
             <ButtonText>Voltar</ButtonText>
           </Button>
-          <Button onPress={submitAnnounce}>
-            <ButtonText>Concluir</ButtonText>
+          <Button enabled={!loading} onPress={submitAnnounce}>
+            {loading && <ActivityIndicator size="large" color="black" />}
+            {!loading && <ButtonText>Concluir</ButtonText>}
           </Button>
         </ButtonsView>
         </FullView>

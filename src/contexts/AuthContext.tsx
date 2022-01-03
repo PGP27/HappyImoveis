@@ -7,6 +7,7 @@ import 'react-native-get-random-values';
 import { v4 as uuid } from 'uuid';
 
 interface AuthContextProps {
+  loading: boolean;
   user: User;
   googleSignIn(): Promise<void>;
   signOut(): Promise<void>;
@@ -38,6 +39,7 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
   const [user, setUser] = useState<User>({} as User);
   const [userId] = useState(uuid());
   const [userPictureId] = useState(uuid());
+  const [loading, setLoading] = useState(false);
 
   const getBlobFromURI =  async (uri: string) => {
     const blob = await (await fetch(uri)).blob();
@@ -45,6 +47,7 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
   }
 
   const googleSignIn = async () => {
+    setLoading(true);
     try {
       const RESPONSE_TYPE = 'token';
       const SCOPE = encodeURI('profile email');
@@ -83,6 +86,7 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
     } catch(error) {
       throw new Error (error);
     }
+    setLoading(false);
   };
 
   const signOut = async () => {
@@ -90,7 +94,7 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
   };
 
   return(
-    <AuthContext.Provider value={{user, googleSignIn, signOut}}>
+    <AuthContext.Provider value={{loading, user, googleSignIn, signOut}}>
       {children}
     </AuthContext.Provider>
   );

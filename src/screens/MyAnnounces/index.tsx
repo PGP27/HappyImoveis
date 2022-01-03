@@ -6,11 +6,14 @@ import AnnounceSimpleCard from '../../components/AnnounceSimpleCard';
 import Header from '../../components/Header';
 import NavigationBar from '../../components/NavigationBar';
 import { Container } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 const MyAnnounces = () => {
   const [myAnnounces, setMyAnnounces] = useState<any>([]);
   const [userId, setUserId] = useState<any>();
+  const [deleteAnnounce, setDeleteAnnounce] = useState(false);
   const { user } = useAuth();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const init = async () => {
@@ -26,20 +29,28 @@ const MyAnnounces = () => {
     init();
   }, []);
 
+  useEffect(() => {
+    if (deleteAnnounce) {
+      navigation.navigate('Profile');
+      alert('Anúncio excluído com sucesso!');
+    }
+    setDeleteAnnounce(false);
+  }, [deleteAnnounce]);
+
   if (myAnnounces && userId) {
     return (
       <Container>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Header pageName="Meus anúncios" />
         <ScrollView style={{flex: 1, marginTop: 10}}>
-          {myAnnounces.map(({ title, mainPictureId }, index) => {
+          {myAnnounces.map((announce, index) => {
             return (
               <AnnounceSimpleCard
                 key={index}
-                title={title}
-                mainPictureId={mainPictureId}
+                announce={announce}
                 userId={userId}
                 iconName="delete"
+                setDeleteAnnounce={setDeleteAnnounce}
               />
             );
           })}
