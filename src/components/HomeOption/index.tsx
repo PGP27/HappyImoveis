@@ -4,7 +4,7 @@ import { database } from '../../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { Container, Icon, Text } from './styles';
 
-const HomeOption = ({ iconName, text}) => {
+const HomeOption = ({ iconName, text }) => {
   const [announces, setAnnounces] = useState([]);
   const navigation = useNavigation();
   const { user } = useAuth();
@@ -33,8 +33,11 @@ const HomeOption = ({ iconName, text}) => {
         setAnnounces(otherAnnounces);
       } else if (text === 'Alto padrão') {
         otherAnnounces.sort((a: any, b: any) => {
-          const sum = (i: any) => parseInt(i.bedrooms) + parseInt(i.bathrooms) + parseInt(i.parkingSapce);
-          return sum(b) - sum(a);
+          console.log(a);
+          const sum = (i: any) => parseInt(i.bedrooms) + parseInt(i.bathrooms) + parseInt(i.parkingSpace);
+          if (sum(a) < sum(b)) return 1;
+          if (sum(a) > sum(b)) return -1;
+          return 0;
         });
         setAnnounces(otherAnnounces);
       }
