@@ -31,6 +31,7 @@ const Pictures = () => {
       } else {
         let result: any = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
           quality: 1,
         });
         if (!result.cancelled) {
@@ -52,9 +53,9 @@ const Pictures = () => {
       await database.collection('announces').add({
         id: uuid(),
         date: {
-          day: date.getDate(),
-          month: date.getMonth() + 1,
-          year: date.getFullYear(),
+          day: date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`,
+          month: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`,
+          year: `${date.getFullYear()}`,
         },
         title: announce.title,
         description: announce.description,
@@ -89,11 +90,11 @@ const Pictures = () => {
           {!mainPicture && <Text>Foto do imóvel</Text>}
           {mainPicture && <Image source={{ uri: mainPicture }} />}
         </PictureView>
-        <ButtonMax onPress={pickImage}>
+        <ButtonMax enabled={!loading} onPress={pickImage}>
           <ButtonText>Adicionar foto</ButtonText>
         </ButtonMax>
         <ButtonsView>
-          <Button onPress={() => navigation.goBack()}>
+          <Button enabled={!loading} onPress={() => navigation.goBack()}>
             <ButtonText>Voltar</ButtonText>
           </Button>
           <Button enabled={!loading} onPress={submitAnnounce}>

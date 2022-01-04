@@ -5,7 +5,9 @@ import { AntDesign } from '@expo/vector-icons';
 export const Container = styled.View`
   display: flex;
   flex-direction: column;
-  background-color: #dddddd;
+  background-color: white;
+  border-bottom-width: 1px;
+  border-bottom-color: #777777;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;

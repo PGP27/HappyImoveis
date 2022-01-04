@@ -10,10 +10,12 @@ export const Container = styled.View`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #dddddd;
+  background-color: white;
   border-radius: 5px;
   padding: 10px;
   margin-bottom:20px;
+  border-bottom-width: 1px;
+  border-bottom-color: #777777;
 `;
 
 export const Title = styled.Text`
@@ -40,10 +42,12 @@ export const Text = styled.Text<TextProps>`
   font-size: ${RFValue(15)}px;
   color: black;
   ${(({ type }) => type === 'price' && css`
+    font-size: ${RFValue(18)}px;
     color: #006600;
   `)}
   ${(({ type }) => type === 'date' && css`
     color: #777777;
+    padding-top: 10px;
   `)}
 `;
 

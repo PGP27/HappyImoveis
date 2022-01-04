@@ -15,6 +15,7 @@ import {
 
 const AnnounceDetailsCard = ({ announce }) => {
   const {
+    type,
     title,
     mainPictureId,
     price,
@@ -29,6 +30,7 @@ const AnnounceDetailsCard = ({ announce }) => {
     parkingSpace,
     advertiserId
   } = announce;
+  const [newType] = useState(type === 'Rental' ? 'Para alugar' : 'À venda');
   const [picture, setPicture] = useState();
 
   useEffect(() => {
@@ -46,8 +48,8 @@ const AnnounceDetailsCard = ({ announce }) => {
       <Title>{title}</Title>
       <Image source={{uri: picture}} />
       <FlexSpace>
-        <Text type="price">{`R$ ${price}`}</Text>
-        <Text type="date">{`Anunciado em ${date.day}/${date.month}/${date.year}`}</Text>
+        <Text type="price">{`${newType}`}</Text>
+        <Text type="price">{`R$ ${price}${type === 'Rental' ? '/mês' : ''}`}</Text>
       </FlexSpace>
       <FlexStart>
         <Icon name="earth" />
@@ -71,6 +73,7 @@ const AnnounceDetailsCard = ({ announce }) => {
           <InfoNumber>{parkingSpace}</InfoNumber>
         </Info>
       </FlexSpace>
+      <Text type="date">{`Anunciado em ${date.day}/${date.month}/${date.year}`}</Text>
     </Container>
   );
 };
