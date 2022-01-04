@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -6,16 +7,14 @@ interface TextProps {
   type?: string;
 };
 
-export const Container = styled.View`
+export const Container = styled(RectButton)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #eeeeee;
   border-radius: 5px;
   padding: 10px;
   margin-bottom:20px;
-  border-bottom-width: 1px;
-  border-bottom-color: #777777;
 `;
 
 export const Title = styled.Text`

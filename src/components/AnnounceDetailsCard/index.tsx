@@ -57,7 +57,7 @@ const AnnounceDetailsCard = ({ announce }) => {
       </FlexStart>
       <FlexStart>
         <Icon name="location-sharp" />
-        <Text>{`${address}, nº ${number}, ${complement}`}</Text>
+        <Text>{`${address}, Nº ${number} ${complement !== '' ? `, ${complement}` : '' }`}</Text>
       </FlexStart>
       <FlexSpace>
         <Info>

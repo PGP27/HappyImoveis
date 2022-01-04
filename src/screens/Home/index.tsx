@@ -14,11 +14,7 @@ const Home = () => {
           <HomeOption iconName='handshake' text='Para alugar' />
         </Row>
         <Row>
-          <HomeOption iconName='calendar-alt' text='Últimos anúncios' />
           <HomeOption iconName='piggy-bank' text='Os mais baratos' />
-        </Row>
-        <Row>
-          <HomeOption iconName='map-marker-alt' text='Pertinho de você' />
           <HomeOption iconName='building' text='Alto padrão' />
         </Row>
       </Main>

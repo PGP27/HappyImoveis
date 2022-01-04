@@ -17,8 +17,8 @@ const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }) =>
 
   const deleteAnnounce = () => {
     Alert.alert(
-      'Deseja excluir esse anúncio?',
-      'Essa ação não poderá ser desfeita, deseja continuar?',
+      'Tem certeza que deseja excluir esse anúncio?',
+      'Essa ação não pode ser desfeita.',
       [
         {
           text: "SIM",

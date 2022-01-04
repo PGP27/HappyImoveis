@@ -9,6 +9,16 @@ const HomeOption = ({ iconName, text }) => {
   const navigation = useNavigation();
   const { user } = useAuth();
 
+  const sortByDate = (a: any, b: any) => {
+    if (parseInt(a.date.year) > parseInt(b.date.year)) return 1;
+    if (parseInt(a.date.year) < parseInt(b.date.year)) return -1;
+    if (parseInt(a.date.month) > parseInt(b.date.month)) return 1;
+    if (parseInt(a.date.month) < parseInt(b.date.month)) return -1;
+    if (parseInt(a.date.day) > parseInt(b.date.day)) return 1;
+    if (parseInt(a.date.day) < parseInt(b.date.day)) return -1;
+    return 0;
+  };
+
   useEffect(() => {
     const searchAnnounces = async () => {
       const getAllUsers = await database.collection('users').get();
@@ -21,19 +31,17 @@ const HomeOption = ({ iconName, text }) => {
       
       if (text === 'À venda') {
         const newOtherAnnounces = otherAnnounces.filter(({ type }) => type === 'Sale');
+        newOtherAnnounces.sort((a, b) => sortByDate(a, b));
         setAnnounces(newOtherAnnounces);
       } else if (text === 'Para alugar') {
         const newOtherAnnounces = otherAnnounces.filter(({ type }) => type === 'Rental');
+        newOtherAnnounces.sort((a, b) => sortByDate(a, b));
         setAnnounces(newOtherAnnounces);
-      } else if (text === 'Últimos anúncios') {
-        otherAnnounces.sort((a: any, b: any) => parseInt(a.price) - parseInt(b.price));
-        setAnnounces(otherAnnounces);
-      }else if (text === 'Os mais baratos') {
+      } else if (text === 'Os mais baratos') {
         otherAnnounces.sort((a: any, b: any) => parseInt(a.price) - parseInt(b.price));
         setAnnounces(otherAnnounces);
       } else if (text === 'Alto padrão') {
         otherAnnounces.sort((a: any, b: any) => {
-          console.log(a);
           const sum = (i: any) => parseInt(i.bedrooms) + parseInt(i.bathrooms) + parseInt(i.parkingSpace);
           if (sum(a) < sum(b)) return 1;
           if (sum(a) > sum(b)) return -1;
