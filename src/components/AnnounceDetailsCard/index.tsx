@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { storage } from '../../../firebase';
 import {
@@ -32,6 +33,7 @@ const AnnounceDetailsCard = ({ announce }) => {
   } = announce;
   const [newType] = useState(type === 'Rental' ? 'Para alugar' : 'À venda');
   const [picture, setPicture] = useState();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const downloadImageById = async () => {
@@ -44,7 +46,14 @@ const AnnounceDetailsCard = ({ announce }) => {
   }, []);
 
   return (
-    <Container>
+    <Container
+      onPress={() => navigation.navigate(
+        'Details',
+        {
+          announce: announce,
+        }
+      )}
+    >
       <Title>{title}</Title>
       <Image source={{uri: picture}} />
       <FlexSpace>

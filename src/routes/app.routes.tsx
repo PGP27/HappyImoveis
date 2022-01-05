@@ -9,6 +9,7 @@ import MyAnnounces from '../screens/MyAnnounces/';
 import Search from '../screens/Search';
 import Profile from '../screens/Profile';
 import ShowAnnounces from '../screens/ShowAnnounces';
+import Details from '../screens/Details';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -24,6 +25,7 @@ const AppRoutes = () => {
       <Screen name="Profile" component={Profile} />
       <Screen name="MyAnnounces" component={MyAnnounces} />
       <Screen name="ShowAnnounces" component={ShowAnnounces} />
+      <Screen name="Details" component={Details} />
     </Navigator>
   );
 };
