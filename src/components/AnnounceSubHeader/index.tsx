@@ -1,15 +1,17 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { Container, Title, CloseButton, Icon } from './styles';
+import { Container, Title, CloseButton, Icon, CloseView } from './styles';
 
 const AnnounceSubHeader = ({ text }) => {
   const navigation = useNavigation();
   return (
     <Container>
       <Title>{text}</Title>
-      <CloseButton onPress={() => navigation.navigate('Home')}>
-        <Icon name="close" />
-      </CloseButton>
+      <CloseView>
+        <CloseButton onPress={() => navigation.navigate('Home')}>
+          <Icon name="close" />
+        </CloseButton>
+      </CloseView>      
     </Container>
   );
 }

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { database } from '../../../firebase';
-import { StatusBar } from 'react-native';
+import { Keyboard, StatusBar } from 'react-native';
 import NavigationBar from '../../components/NavigationBar';
 import { useAuth } from '../../contexts/AuthContext';
-import { Container, Header, Input, Text, SearchOptions, OptionButton, OptionText } from './styles';
+import { Container, Header, Input, CloseButton, CloseText, Text, SearchOptions, OptionButton, OptionText } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
 const Search = () => {
+  const [inputFocus, setInputFocus] = useState(false);
   const [inputText, setInputText] = useState('');
   const [selectedOption, setSelectedOption] = useState('address');
   const { user } = useAuth();
@@ -40,7 +41,25 @@ const Search = () => {
     <Container>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Header>
-        <Input value={inputText} onChangeText={(text) => setInputText(text)} onSubmitEditing={searchAnnounce} returnKeyType="search" placeholder="Pesquise aqui..." underlineColorAndroid="gray" />
+        <Input
+          value={inputText}
+          onChangeText={(text) => setInputText(text)}
+          onFocus={() => setInputFocus(true)}
+          onBlur={() => setInputFocus(false)}
+          onSubmitEditing={searchAnnounce}
+          returnKeyType="search"
+          placeholder="Pesquise aqui..."
+          underlineColorAndroid="gray"
+        />
+        {inputFocus && (
+          <CloseButton onPress={() => {
+            Keyboard.dismiss();
+            setInputText('');
+            setInputFocus(false);
+          }}>
+            <CloseText>cancelar</CloseText>
+          </CloseButton>
+        )}
       </Header>
       <Text>Buscar por:</Text>
       <SearchOptions>

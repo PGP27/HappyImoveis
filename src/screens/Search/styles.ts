@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components/native';
 import { TextInput } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 interface OptionButtonProps {
@@ -37,6 +36,16 @@ export const Input = styled(TextInput)`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(20)}px;
   padding: 5px 0px 20px 5px;
+`;
+
+export const CloseButton = styled.TouchableOpacity`
+  margin-left: 20px;
+`;
+
+export const CloseText = styled.Text`
+  font-family: ${({theme}) => theme.fonts.regular};
+  font-size: ${RFValue(18)}px;
+  color: #ff3333;
 `;
 
 export const Text = styled.Text`

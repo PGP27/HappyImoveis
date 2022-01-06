@@ -6,6 +6,7 @@ export const Container = styled.View`
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-bottom: 50px;
 `;
 
@@ -15,8 +16,9 @@ export const Title = styled.Text`
   font-size: ${RFValue(24)}px;
 `;
 
+export const CloseView = styled.View``;
+
 export const CloseButton = styled.TouchableOpacity`
-  padding: 5px;
   margin-left: 20px;
 `;
 
