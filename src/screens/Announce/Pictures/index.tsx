@@ -31,7 +31,6 @@ const Pictures = () => {
       } else {
         let result: any = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
           quality: 1,
         });
         if (!result.cancelled) {

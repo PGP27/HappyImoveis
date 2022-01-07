@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface TextProps {
   type?: string;
+  flex?: boolean;
 };
 
 export const Container = styled(RectButton)`
@@ -47,6 +48,10 @@ export const Text = styled.Text<TextProps>`
   ${(({ type }) => type === 'date' && css`
     color: #777777;
     padding-top: 10px;
+  `)}
+  ${(({ flex }) => flex && css`
+    flex: 1;
+    text-align: justify;
   `)}
 `;
 

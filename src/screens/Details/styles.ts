@@ -1,12 +1,17 @@
-import styled from 'styled-components/native';
+import styled, { css }from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+
+interface TextProps {
+  type?: string;
+  flex?: boolean;
+};
 
 export const Container = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   background-color: white;
 `;
 
@@ -41,4 +46,75 @@ export const OptionsIcon = styled(AntDesign)`
 export const MainImage = styled.Image`
   height: 200px;
   width: 100%;
+`;
+
+export const AnnounceInfos = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Text = styled.Text<TextProps>`
+  font-family: ${(({theme}) => theme.fonts.regular)};
+  font-size: ${RFValue(15)}px;
+  color: black;
+  ${(({ type }) => type === 'price' && css`
+    font-size: ${RFValue(18)}px;
+    color: #006600;
+  `)}
+  ${(({ type }) => type === 'date' && css`
+    color: #777777;
+    padding-top: 10px;
+  `)}
+  ${(({ flex }) => flex && css`
+    text-align: justify;
+  `)}
+`;
+
+export const AnnounceDescription = styled.Text`
+  width: 100%;
+  font-family: ${(({ theme }) =>  theme.fonts.regular)};
+  font-size: ${RFValue(16)}px;
+  text-align: justify;
+  padding: 10px 0px;
+`;
+
+export const LocationView = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0px;
+`;
+
+export const LocationIcon = styled(Ionicons)`
+  font-size: ${RFValue(16)}px;
+  margin-right: 10px;
+`;
+
+export const FlexSpace = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Info = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const InfoText = styled.Text`
+  font-family: ${(({theme}) => theme.fonts.regular)};
+  font-size: ${RFValue(15)}px;
+  color: black;
+`;
+
+export const InfoNumber = styled.Text`
+  font-family: ${(({theme}) => theme.fonts.regular)};
+  font-size: ${RFValue(20)}px;
+  color: black;
 `;

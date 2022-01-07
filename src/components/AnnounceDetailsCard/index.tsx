@@ -62,11 +62,11 @@ const AnnounceDetailsCard = ({ announce }) => {
       </FlexSpace>
       <FlexStart>
         <Icon name="earth" />
-        <Text>{`${city} - ${state}`}</Text>
+        <Text flex>{`${city} - ${state}`}</Text>
       </FlexStart>
       <FlexStart>
         <Icon name="location-sharp" />
-        <Text>{`${address}, Nº ${number} ${complement !== '' ? `, ${complement}` : '' }`}</Text>
+        <Text flex>{`${address}, Nº ${number} ${complement !== '' ? `, ${complement}` : '' }`}</Text>
       </FlexStart>
       <FlexSpace>
         <Info>

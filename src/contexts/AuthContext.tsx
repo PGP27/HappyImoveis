@@ -38,7 +38,6 @@ const AuthContext = createContext({} as AuthContextProps);
 const AuthProvider = ({children}: AuthProviderProps ) => {
   const [user, setUser] = useState<User>({} as User);
   const [userId] = useState(uuid());
-  const [userPictureId] = useState(uuid());
   const [loading, setLoading] = useState(false);
 
   const getBlobFromURI =  async (uri: string) => {
@@ -65,7 +64,6 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
           lastName: userInfo.family_name,
           email: userInfo.email,
           picture: userInfo.picture,
-          pictureId: userPictureId,
         });
 
         const getAllUsers = await database.collection('users').get();
@@ -73,13 +71,12 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
 
         if (!allUsers.some(({ email }) => email === userInfo.email)) {
           const blob = await getBlobFromURI(userInfo.picture);
-          await storage.ref('users/').child(userPictureId).put(blob);
+          await storage.ref('users/').child(userId).put(blob);
           await database.collection('users').add({
             id: userId,
             firstName: userInfo.given_name,
             lastName: userInfo.family_name,
             email: userInfo.email,
-            pictureId: userPictureId,
           });
         }
       }
