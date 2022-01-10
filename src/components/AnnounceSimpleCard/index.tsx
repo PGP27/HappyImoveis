@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { database, storage } from '../../../firebase'
@@ -5,6 +6,7 @@ import { Container, Title, Image, OptionsView, Details, IconsView, Button, Icon 
 
 const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }) => {
   const [picture, setPicture] = useState();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const downloadImageById = async () => {
@@ -43,13 +45,18 @@ const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }) =>
         <Title>{announce.title}</Title>
         <Image source={{uri: picture}} />
         <OptionsView>
-          <Button style={{marginLeft: 0}}>
+          <Button style={{marginLeft: 0}} onPress={() => {
+            navigation.navigate(
+              'Details',
+              {
+                announce: announce,
+              }
+            )
+          }}
+          >
             <Details>Detalhes do anúncio</Details>
           </Button>
           <IconsView>
-            <Button>
-              <Icon name="sharealt" />
-            </Button>
             <Button onPress={deleteAnnounce}>
               <Icon name={iconName} />
             </Button>

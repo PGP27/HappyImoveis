@@ -27,6 +27,8 @@ const Details = () => {
     advertiserId
   } = announce;
 
+  const { day, month, year } = date;
+
   const [mainPicture, setMainPicture] = useState();
   const [newType] = useState(type === 'Rental' ? 'Para alugar' : 'À venda');
   const [advertiserPicture, setAdvertiserPicture] = useState();
@@ -62,16 +64,11 @@ const Details = () => {
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Header>
           <Title>{title}</Title>
-          <Options>
-            <OptionsButton>
-              <Icon name="sharealt" />
-            </OptionsButton>
-            <OptionsButton>
-              <Icon name="hearto" />
-            </OptionsButton>
-          </Options>
+          <OptionsButton>
+            <Icon name="hearto" />
+          </OptionsButton>
         </Header>
-        <ScrollView style={{width: Dimensions.get('window').width, flex: 1, padding: 20}} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+        <ScrollView style={{width: Dimensions.get('window').width, flex: 1, padding: 20, paddingTop: 0, marginTop: 10}} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           <MainImage source={{uri: mainPicture}} />
           <AnnounceInfos>
             <Text type="price">{newType}</Text>
@@ -85,7 +82,7 @@ const Details = () => {
           <LocationView>
             <LocationIcon name="location-sharp" />
             <View style={{flex: 1, alignSelf: 'flex-start'}}>
-              <Text flex>{`${address}, Nº ${number} ${complement !== '' ? `, ${complement}` : '' }`}</Text>
+              <Text flex>{`${address}, Nº ${number}${complement !== '' ? `, ${complement}` : '' }`}</Text>
             </View>
           </LocationView>
           <FlexSpace>
@@ -102,23 +99,19 @@ const Details = () => {
               <InfoNumber>{parkingSpace}</InfoNumber>
             </Info>
           </FlexSpace>
-          <Info>
-            <Text full>Gostou do imóvel?</Text>
-            <Text full>Fale com o anunciante!</Text>
-            <FlexRowCenter style={{marginTop: 10}}>
-              <AdvertiserPicture source={{uri: advertiserPicture}} style={{marginRight: 10}} />
-              <Info>
-                <FlexRowCenter>
-                  <Icon name="user" />
-                  <Text style={{marginLeft: 5}} full>{`${advertiserInfos.firstName} ${advertiserInfos.lastName}`}</Text>
-                </FlexRowCenter>
-                <FlexRowCenter>
-                  <Icon name="mail" />
-                  <Text style={{marginLeft: 5}} full>{advertiserInfos.email}</Text>
-                </FlexRowCenter>
-              </Info>
-            </FlexRowCenter>
-          </Info>
+          <Text date>{`Anunciado em ${day}/${month}/${year}`}</Text>
+          <Text style={{marginTop: 10}} full>Gostou do imóvel?</Text>
+          <Text full>Fale com o anunciante!</Text>
+          <FlexRowCenter style={{marginTop: 10}}>
+            <AdvertiserPicture source={{uri: advertiserPicture}} style={{marginRight: 10}} />
+            <Text advertiser style={{marginLeft: 5, padding: 5}}>{`${advertiserInfos.firstName} ${advertiserInfos.lastName}`}</Text>
+          </FlexRowCenter>
+          <FlexRowCenter style={{marginTop: 10, marginBottom: 20}}>
+            <Icon name="mail" />
+            <View style={{flex: 1, alignSelf: 'flex-start'}}>
+              <Text advertiser style={{marginLeft: 5, padding: 5}} flex>{advertiserInfos.email}</Text>
+            </View>
+          </FlexRowCenter>
         </ScrollView>
         <NavigationBar selected="" />
       </Container>

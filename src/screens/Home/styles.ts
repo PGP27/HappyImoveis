@@ -11,12 +11,13 @@ export const Container = styled.View`
 `;
 
 export const Main = styled.View`
+  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
 `;
 
 export const Row = styled.View`

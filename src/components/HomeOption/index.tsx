@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { database } from '../../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { Container, Icon, Text } from './styles';

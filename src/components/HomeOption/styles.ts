@@ -6,12 +6,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 export const Container = styled(RectButton)`
   flex: 1;
   height: ${RFValue(100)}px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   border-radius: 5px;
-  background-color: #dddddd;
+  background-color: #eeeeee;
   padding: 10px;
   margin: 2px;
 `;

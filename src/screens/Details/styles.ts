@@ -6,6 +6,8 @@ interface TextProps {
   type?: string;
   flex?: boolean;
   full?: boolean;
+  advertiser?: boolean;
+  date?: boolean;
 };
 
 export const Container = styled.View`
@@ -76,6 +78,13 @@ export const Text = styled.Text<TextProps>`
     font-size: ${RFValue(16)}px;
     padding: 5px;
   `)}
+  ${(({ advertiser }) => advertiser && css`
+    font-size: ${RFValue(16)}px;
+  `)}
+  ${(({ date }) => date && css`
+    color: #777777;
+    padding: 20px 0px;
+  `)}
 `;
 
 export const AnnounceDescription = styled.Text`
@@ -133,7 +142,7 @@ export const FlexRowCenter = styled.View`
 `;
 
 export const AdvertiserPicture = styled.Image`
-  height: 70px;
-  width: 70px;
-  border-radius: 80px;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
 `;
