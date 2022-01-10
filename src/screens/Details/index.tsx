@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { storage } from  '../../../firebase';
+import { database, storage } from  '../../../firebase';
 import { useRoute } from '@react-navigation/native';
-import { Container, Header, Title, Options, OptionsButton, OptionsIcon, MainImage, AnnounceInfos, Text, AnnounceDescription, LocationView, LocationIcon, FlexSpace, Info, InfoText, InfoNumber } from './styles';
+import { Container, Header, Title, Options, OptionsButton, Icon, MainImage, AnnounceInfos, Text, AnnounceDescription, LocationView, LocationIcon, FlexSpace, Info, InfoText, InfoNumber, FlexRowCenter, AdvertiserPicture } from './styles';
 import { Dimensions, ScrollView, StatusBar, View } from 'react-native';
+import NavigationBar from '../../components/NavigationBar';
 
 const Details = () => {
   const route = useRoute();
@@ -28,7 +29,8 @@ const Details = () => {
 
   const [mainPicture, setMainPicture] = useState();
   const [newType] = useState(type === 'Rental' ? 'Para alugar' : 'À venda');
-  const [userPicture, setUserPicture] = useState();
+  const [advertiserPicture, setAdvertiserPicture] = useState();
+  const [advertiserInfos, setAdvertiserInfos] = useState<any>();
 
   useEffect(() => {
     const downloadImageById = async () => {
@@ -41,28 +43,35 @@ const Details = () => {
       const response = await storage.ref('users')
         .child(advertiserId).getDownloadURL();
       const uri = await response;
-      setUserPicture(uri);
+      setAdvertiserPicture(uri);
     };
+    const getUserInfos = async () => {
+      const getAllUsers = await database.collection('users').get();
+      const allUsers = getAllUsers.docs.map((doc) => doc.data());
+      const advertiser = allUsers.find(({ id }) => id === advertiserId);
+      setAdvertiserInfos(advertiser);
+    };
+    getUserInfos();
     downloadImageById();
     downloadUserPicture();
   }, []);
 
-  return (
-    <Container>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
-      <Header>
-        <Title>{title}</Title>
-        <Options>
-          <OptionsButton>
-            <OptionsIcon name="sharealt" />
-          </OptionsButton>
-          <OptionsButton>
-            <OptionsIcon name="hearto" />
-          </OptionsButton>
-        </Options>
-      </Header>
-      <View>
-        <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+  if (advertiserInfos) {
+    return (
+      <Container>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
+        <Header>
+          <Title>{title}</Title>
+          <Options>
+            <OptionsButton>
+              <Icon name="sharealt" />
+            </OptionsButton>
+            <OptionsButton>
+              <Icon name="hearto" />
+            </OptionsButton>
+          </Options>
+        </Header>
+        <ScrollView style={{width: Dimensions.get('window').width, flex: 1, padding: 20}} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           <MainImage source={{uri: mainPicture}} />
           <AnnounceInfos>
             <Text type="price">{newType}</Text>
@@ -93,10 +102,30 @@ const Details = () => {
               <InfoNumber>{parkingSpace}</InfoNumber>
             </Info>
           </FlexSpace>
+          <Info>
+            <Text full>Gostou do imóvel?</Text>
+            <Text full>Fale com o anunciante!</Text>
+            <FlexRowCenter style={{marginTop: 10}}>
+              <AdvertiserPicture source={{uri: advertiserPicture}} style={{marginRight: 10}} />
+              <Info>
+                <FlexRowCenter>
+                  <Icon name="user" />
+                  <Text style={{marginLeft: 5}} full>{`${advertiserInfos.firstName} ${advertiserInfos.lastName}`}</Text>
+                </FlexRowCenter>
+                <FlexRowCenter>
+                  <Icon name="mail" />
+                  <Text style={{marginLeft: 5}} full>{advertiserInfos.email}</Text>
+                </FlexRowCenter>
+              </Info>
+            </FlexRowCenter>
+          </Info>
         </ScrollView>
-      </View>
-    </Container>
-  );
+        <NavigationBar selected="" />
+      </Container>
+    );
+  }
+
+  return null;
 };
 
 export default Details

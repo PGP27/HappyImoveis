@@ -42,7 +42,7 @@ const MyAnnounces = () => {
       <Container>
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Header pageName="Meus anúncios" />
-        <ScrollView style={{flex: 1, marginTop: 10}}>
+        <ScrollView style={{flex: 1, marginTop: 10}} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
           {myAnnounces.map((announce, index) => {
             return (
               <AnnounceSimpleCard
