@@ -77,6 +77,7 @@ const AuthProvider = ({children}: AuthProviderProps ) => {
             firstName: userInfo.given_name,
             lastName: userInfo.family_name,
             email: userInfo.email,
+            favorites: [],
           });
         }
       }

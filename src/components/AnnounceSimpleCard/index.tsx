@@ -4,13 +4,22 @@ import { Alert } from 'react-native';
 import { database, storage } from '../../../firebase'
 import { Container, Title, Image, OptionsView, Details, IconsView, Button, Icon } from './styles';
 
-const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }) => {
+interface AnnounceSimpleCardProps {
+  announce: any;
+  userId?: string;
+  iconName?: string;
+  setDeleteAnnounce?: any;
+};
+
+const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }: AnnounceSimpleCardProps) => {
   const [picture, setPicture] = useState();
   const navigation = useNavigation();
 
   useEffect(() => {
     const downloadImageById = async () => {
-      const response = await storage.ref(`announces/${userId}`).child(announce.mainPictureId).getDownloadURL();
+      let adId = userId;
+      if (!userId) adId = announce.advertiserId;
+      const response = await storage.ref(`announces/${adId}`).child(announce.mainPictureId).getDownloadURL();
       const uri = await response;
       setPicture(uri);
     };
@@ -18,25 +27,27 @@ const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }) =>
   }, []);
 
   const deleteAnnounce = () => {
-    Alert.alert(
-      'Tem certeza que deseja excluir esse anúncio?',
-      'Essa ação não pode ser desfeita.',
-      [
-        {
-          text: "SIM",
-          onPress: async () => {
-            const getAnnounce = database.collection('announces').where('id', '==', announce.id);
-            await getAnnounce.get().then((announce) => {
-              announce.forEach((doc) => doc.ref.delete())
-            });
-            setDeleteAnnounce(true);
+    if (setDeleteAnnounce) {
+      Alert.alert(
+        'Tem certeza que deseja excluir esse anúncio?',
+        'Essa ação não pode ser desfeita.',
+        [
+          {
+            text: "SIM",
+            onPress: async () => {
+              const getAnnounce = database.collection('announces').where('id', '==', announce.id);
+              await getAnnounce.get().then((announce) => {
+                announce.forEach((doc) => doc.ref.delete())
+              });
+              setDeleteAnnounce(true);
+            }
+          },
+          {
+            text: "NÃO"
           }
-        },
-        {
-          text: "NÃO"
-        }
-      ]
-    );
+        ]
+      );
+    }
   };
 
   if (picture) {
@@ -57,9 +68,11 @@ const AnnounceSimpleCard = ({announce, userId, iconName, setDeleteAnnounce }) =>
             <Details>Detalhes do anúncio</Details>
           </Button>
           <IconsView>
-            <Button onPress={deleteAnnounce}>
-              <Icon name={iconName} />
-            </Button>
+            {iconName && (
+              <Button onPress={deleteAnnounce}>
+                <Icon name={iconName} />
+              </Button>
+            )}
           </IconsView>
         </OptionsView>
       </Container>

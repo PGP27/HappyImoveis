@@ -20,7 +20,7 @@ const Profile = () => {
         </FullName>
       </ProfileInfo>
       <List>
-        <Option>
+        <Option onPress={() => navigation.navigate('Favorites')}>
           <HeartIcon name="heart" />
           <Text>Favoritos</Text>
         </Option>

@@ -4,12 +4,14 @@ import { useRoute } from '@react-navigation/native';
 import { Container, Header, Title, Options, OptionsButton, Icon, MainImage, AnnounceInfos, Text, AnnounceDescription, LocationView, LocationIcon, FlexSpace, Info, InfoText, InfoNumber, FlexRowCenter, AdvertiserPicture } from './styles';
 import { Dimensions, ScrollView, StatusBar, View } from 'react-native';
 import NavigationBar from '../../components/NavigationBar';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Details = () => {
   const route = useRoute();
   const { announce }: any = route.params;
 
   const {
+    id: announceId,
     type,
     title,
     mainPictureId,
@@ -33,6 +35,9 @@ const Details = () => {
   const [newType] = useState(type === 'Rental' ? 'Para alugar' : 'À venda');
   const [advertiserPicture, setAdvertiserPicture] = useState();
   const [advertiserInfos, setAdvertiserInfos] = useState<any>();
+  const [currentUser, setCurrentUser] = useState<any>();
+  const [heartIconType, setHeartIconType] = useState('hearto');
+  const { user } = useAuth();
 
   useEffect(() => {
     const downloadImageById = async () => {
@@ -52,11 +57,40 @@ const Details = () => {
       const allUsers = getAllUsers.docs.map((doc) => doc.data());
       const advertiser = allUsers.find(({ id }) => id === advertiserId);
       setAdvertiserInfos(advertiser);
+
+      const getCurrentUser = allUsers.find(({ email }) => email === user.email);
+      setCurrentUser(getCurrentUser);
+      getCurrentUser.favorites.forEach(({ id }) => {
+        if (id === announceId) setHeartIconType('heart');
+      });
     };
     getUserInfos();
     downloadImageById();
     downloadUserPicture();
   }, []);
+
+  const favoriteAnnounce = async () => {
+    const getUser = database.collection('users').where('email', '==', user.email);
+    if (heartIconType === 'hearto') {
+      await getUser.get().then((user) => {
+        user.forEach((doc) => doc.ref.delete())
+      });
+      await database.collection('users').add({
+        ...currentUser,
+        favorites: [...currentUser.favorites, announce]
+      });
+      setHeartIconType('heart');
+    } else {
+      await getUser.get().then((user) => {
+        user.forEach((doc) => doc.ref.delete())
+      });
+      await database.collection('users').add({
+        ...currentUser,
+        favorites: currentUser.favorites.filter(({ id }) => id !== announceId)
+      });
+      setHeartIconType('hearto');
+    }
+  };
 
   if (advertiserInfos) {
     return (
@@ -64,8 +98,8 @@ const Details = () => {
         <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Header>
           <Title>{title}</Title>
-          <OptionsButton>
-            <Icon name="hearto" />
+          <OptionsButton onPress={favoriteAnnounce}>
+            <Icon name={heartIconType} />
           </OptionsButton>
         </Header>
         <ScrollView style={{width: Dimensions.get('window').width, flex: 1, padding: 20, paddingTop: 0, marginTop: 10}} showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
@@ -100,6 +134,7 @@ const Details = () => {
             </Info>
           </FlexSpace>
           <Text date>{`Anunciado em ${day}/${month}/${year}`}</Text>
+          <View style={{borderBottomWidth: 1, borderColor: '#777777'}} />
           <Text style={{marginTop: 10}} full>Gostou do imóvel?</Text>
           <Text full>Fale com o anunciante!</Text>
           <FlexRowCenter style={{marginTop: 10}}>
