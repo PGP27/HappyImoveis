@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, View } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
 import { Container, Text, ButtonsView, Button, ButtonText } from './styles';
@@ -41,13 +41,22 @@ const Infos = () => {
           }));
           navigation.navigate('Pictures');
         } else {
-          alert('Digite um número de vagas válido para continuar');
+          Alert.alert(
+            'Formulário incompleto.',
+            'Digite um número de vagas válido para continuar.'
+          );
         }
       } else {
-        alert('Digite um número de banheiros válido para continuar');
+        Alert.alert(
+          'Formulário incompleto.',
+          'Digite um número de banheiros válido para continuar.'
+        );
       }
     } else {
-      alert('Digite um número de quartos válido para continuar');
+      Alert.alert(
+        'Formulário incompleto.',
+        'Digite um número de quartos válido para continuar.'
+      );
     }
   };
 

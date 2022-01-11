@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StatusBar, View } from 'react-native';
+import { Alert, ScrollView, StatusBar, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAnnounce } from '../../../contexts/AnnounceContext';
 import TextInput from '../../../components/TextInput';
@@ -51,16 +51,28 @@ const Descriptions = () => {
             }));
             navigation.navigate('Address');
           } else {
-            alert('Digite um preço válido continuar');
+            Alert.alert(
+              'Formulário incompleto.',
+              'Digite um preço válido para continuar.'
+            );
           }
         } else {
-          alert('Escolha um tipo de anúncio para continuar');  
+          Alert.alert(
+            'Formulário incompleto.',
+            'Preencha um tipo de anúncio para continuar.'
+          );
         }
       } else {
-        alert('Preencha uma descrição para continuar');
+        Alert.alert(
+          'Formulário incompleto.',
+          'Preencha uma descrição para continuar.'
+        );
       }
     } else {
-      alert('Preencha um título para continuar');
+      Alert.alert(
+        'Formulário incompleto.',
+        'Preencha um título para continuar.'
+      );
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StatusBar, ScrollView } from 'react-native';
+import { StatusBar, ScrollView, Alert } from 'react-native';
 import { database } from '../../../firebase'
 import { useAuth } from '../../contexts/AuthContext';
 import AnnounceSimpleCard from '../../components/AnnounceSimpleCard';
@@ -32,7 +32,10 @@ const MyAnnounces = () => {
   useEffect(() => {
     if (deleteAnnounce) {
       navigation.navigate('Profile');
-      alert('Anúncio excluído com sucesso!');
+      Alert.alert(
+        'Parabéns!',
+        'Anúncio excluído com sucesso!'
+      );
     }
     setDeleteAnnounce(false);
   }, [deleteAnnounce]);

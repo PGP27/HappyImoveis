@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, ScrollView, View } from 'react-native';
+import { StatusBar, ScrollView, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInput from '../../../components/TextInput';
 import { SubText } from '../Descriptions/styles';
@@ -73,16 +73,28 @@ const Address = () => {
             }));
             navigation.navigate('Infos');
           } else {
-            alert('Escolha uma cidade para continuar');
+            Alert.alert(
+              'Formulário incompleto.',
+              'Escolha uma cidade para continuar.'
+            );
           }
         } else {
-          alert('Escolha um estado para continuar');
+          Alert.alert(
+            'Formulário incompleto.',
+            'Escolha um estado para continuar.'
+          );
         }
       } else {
-        alert('Digite um número válido para continuar');
+        Alert.alert(
+          'Formulário incompleto.',
+          'Digite um número válido para continuar.'
+        );
       }
     } else {
-      alert('Preencha um endereço para continuar');
+      Alert.alert(
+        'Formulário incompleto.',
+        'Digite um endereço válido para continuar.'
+      );
     }
   };
 

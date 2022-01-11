@@ -38,15 +38,15 @@ export const AnnounceTypeView = styled.View`
 
 export const AnnounceTypeButtonBorder = styled.View<TypeSelected>`
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 50px;
   ${(({selected}) => selected && css`
-    background-color: #5070bb;
+    background-color: #304050;
   `)}
 `;
 
-export const AnnounceTypeButton = styled(RectButton)`
+export const AnnounceTypeButton = styled.TouchableOpacity`
   padding: 5px 15px;
-  border-radius: 5px;
+  border-radius: 50px;
 `;
 
 export const ButtonsView = styled.View`

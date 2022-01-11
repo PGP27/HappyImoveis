@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar, Platform, ActivityIndicator } from 'react-native';
+import { StatusBar, Platform, ActivityIndicator, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { database, storage } from '../../../../firebase';
 import * as ImagePicker from 'expo-image-picker';
@@ -27,7 +27,10 @@ const Pictures = () => {
     if (Platform.OS !== 'web') {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
-        alert('Desculpe, precisamos de permissão para fazer upload das imagens.');
+        Alert.alert(
+          'Permissão negada.',
+          'Desculpe, precisamos de permissão para fazer upload das imagens.'
+        );
       } else {
         let result: any = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -72,9 +75,15 @@ const Pictures = () => {
         advertiserId: currentUser.id,
       });
       navigation.navigate('Home');
-      alert('Imóvel cadastrado com sucesso!');
+      Alert.alert(
+        'Parabéns!',
+        'Seu imóvel foi cadastrado com sucesso!'
+      );
     } else {
-      alert('Adicione uma foto para concluir');
+      Alert.alert(
+        'Formulário incompleto.',
+        'Adicione uma foto para concluir.'
+      );
     }
     setLoading(false);
   };
